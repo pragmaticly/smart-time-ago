@@ -1,0 +1,16 @@
+{
+  "name": "smart-time-ago",
+  "description": "a simeple lib to update the relative time on your page",
+  "version": "0.0.1",
+  "author": "poshboytl",
+  "licenses":
+    [{
+      "type": "MIT",
+      "url": "https://github.com/pragmaticly/smart-time-ago/blob/master/LICENSE"
+    }],
+  "repository": {
+    "type" : "git",
+    "url": "http://github.com/pragmaticly/smart-time-ago.git"
+  },
+  "main" : "./index.js"
+}
