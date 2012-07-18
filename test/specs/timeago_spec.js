@@ -215,6 +215,42 @@ describe("TimeAgo", function(){
       });
     });
 
+    describe("context: dim >= 43199.5 and dim < 86399.5", function(){
+      it("should return 'about 1 month'", function(){
+        expect(timeAgo.distanceOfTimeInWords(50000)).toEqual("about 1 month");
+      });
+    });
+
+    describe("context:dim >= 86399.5 and dim < 525599.5", function(){
+      it("should return '2 months'", function(){
+        expect(timeAgo.distanceOfTimeInWords(86400)).toEqual("2 months");
+      });
+    });
+
+    describe("context: dim >= 525599.5 and dim < 655199.5", function(){
+      it("should return 'about 1 year'", function(){
+        expect(timeAgo.distanceOfTimeInWords(535500)).toEqual("about 1 year");
+      });
+    });
+
+    describe("context:dim >= 655199.5 and dim < 914399.5", function(){
+      it("should return 'over 1 year'", function(){
+        expect(timeAgo.distanceOfTimeInWords(665199)).toEqual("over 1 year");
+      });
+    });
+
+    describe("context:dim >= 914399.5 and dim < 1051199.5", function(){
+      it("should return 'almost 2 years'", function(){
+        expect(timeAgo.distanceOfTimeInWords(1051199)).toEqual("almost 2 years");
+      });
+    });
+
+    describe("context: else", function(){
+      it("should return 'about 3 years'", function(){
+        expect(timeAgo.distanceOfTimeInWords(1576800)).toEqual("about 3 years");
+      });
+    });
+
   });
 
 });
