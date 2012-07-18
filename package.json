@@ -12,5 +12,8 @@
     "type" : "git",
     "url": "http://github.com/pragmaticly/smart-time-ago.git"
   },
+  "dependencies" : {
+    "jquery" : "*"
+  },
   "main" : "./index.js"
 }
