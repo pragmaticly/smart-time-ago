@@ -1,3 +1,10 @@
+# Smart Time Ago v0.0.1
+
+# Copyright 2012, Terry Tai, Pragmatic.ly
+# https://pragmatic.ly/
+# Licensed under the MIT license.
+# https://github.com/pragmaticly/smart-time-ago/blob/master/LICENSE
+
 class TimeAgo
   constructor: (element, options) ->
     @startInterval = 30000
