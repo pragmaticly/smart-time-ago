@@ -2,7 +2,9 @@ smart-time-ago
 ======================
 
 Smart Time Ago is a little jQuery library to update the relative timestamps in your document. (e.g "3 hours ago").
+
 It's originally built for https://pragmatic.ly/. 
+
 It's inspired by another jQuery plugin http://timeago.yarp.com/ but give more flexibility and more features.
 
 Installation
