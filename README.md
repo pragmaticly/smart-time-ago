@@ -86,7 +86,7 @@ Credits
 
 ![pragmatic.ly](https://pragmatic.ly/assets/vlogo.png)
 
-smart-time-ago is maintained and funded by Pragmatic.ly.
+smart-time-ago is maintained and funded by [Pragmatic.ly](https://pragmatic.ly/ "Pragmatic.ly").
 
 Thanks to all the contributors.
 
