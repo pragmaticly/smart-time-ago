@@ -15,17 +15,20 @@ Or if you use node, you can install it from npm.
   
     $ npm install -g smart-time-ago
 
-Why Smart
+Why Smart?
 -------------
 
 smart-time-ago will check and update the relative time every 30000 millisecond (30 seconds) in the scope you specify. Latter it will check the newest time in your scope then change the interval to a proper value. 
 
 For example, If the newest time in the scope you specify is '2 hours ago'. The smart-time-ago won't check and update the relative time every 30 seconds, because it's unneccessary. It will automaticly make the interval longer to 15 minutes.
 
-So if you need dynamic add the time element to your document without refreshing the page. You might need call the refresh function to refresh the smart-time-ago like:
-
-    $().timeago('refresh');
+Rules:
   
+  The newest time less than 44.5 minutes, the interval will set to 0.5 minutes.
+
+  The newest time between 44.5, 89.5 minutes, the interval will set to 15 minutes.
+
+  The newest time more than 1 hour and a half, the interval will set to 30 minutes.
 
 Usage
 ------------
@@ -54,6 +57,10 @@ It will create one TimeAgo instance to update the time elements in the div with 
 However you can also create TimeAgo instance for every time element separately like:
 
     $('.timeago').timeago();
+
+BTW if you need dynamic add the time element to your document without refreshing the page or you want to refresh the timeago manually. You might need call the refresh function to refresh the smart-time-ago like:
+
+    $().timeago('refresh');
 
     
 Configuration
