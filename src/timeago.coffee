@@ -76,7 +76,7 @@ class TimeAgo
     (Math.abs(timeDistance) / 1000) / 60
 
   distanceOfTimeInWords: (dim) ->
-    # Wrods need to be the same with Rails
+    # Words need to be the same with Rails
     # 0 <-> 29 secs                                                             # => less than a minute
     # 30 secs <-> 1 min, 29 secs                                                # => 1 minute
     # 1 min, 30 secs <-> 44 mins, 29 secs                                       # => [2..44] minutes
