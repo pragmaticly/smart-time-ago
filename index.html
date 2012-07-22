@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>smart-time-ago by pragmaticly</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>smart-time-ago</h1>
+        <p>Smart Time Ago is a little jQuery library to update the relative timestamps in your document. </p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/pragmaticly/smart-time-ago" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/pragmaticly/smart-time-ago/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/pragmaticly/smart-time-ago/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>smart-time-ago</h1>
+
+<p>Smart Time Ago is a little jQuery library to update the relative timestamps in your document. (e.g "3 hours ago").</p>
+
+<p>It's originally built for <a href="https://pragmatic.ly/">https://pragmatic.ly/</a>. </p>
+
+<p>It's inspired by another jQuery plugin <a href="http://timeago.yarp.com/">http://timeago.yarp.com/</a> but give more flexibility and more features.</p>
+
+<h2>Installation</h2>
+
+<p>You can just use it as a jQuery plugin.
+If so, you just need copy the lib/timeago.js or src/timeago.coffee to your javascripts lib then load it after jQuery loaded.</p>
+
+<p>Or if you use node, you can install it from npm.</p>
+
+<pre><code>$ npm install -g smart-time-ago
+</code></pre>
+
+<h2>Why Smart?</h2>
+
+<p>smart-time-ago will check and update the relative time every 30000 millisecond (30 seconds) in the scope you specify. Latter it will check the newest time in your scope then change the interval to a proper value. </p>
+
+<p>For example, If the newest time in the scope you specify is '2 hours ago'. The smart-time-ago won't check and update the relative time every 30 seconds, because it's unneccessary. It will automaticly make the interval longer to 15 minutes.</p>
+
+<p>Rules:</p>
+
+<p>The newest time less than 44.5 minutes, the interval will set to 0.5 minutes.</p>
+
+<p>The newest time between 44.5, 89.5 minutes, the interval will set to 15 minutes.</p>
+
+<p>The newest time more than 1 hour and a half, the interval will set to 30 minutes.</p>
+
+<h2>Usage</h2>
+
+<p>By default smart-time-ago will keep watch on the time elements with a class of timeago and a ISO8601 timestamp in datatime attribute:</p>
+
+<pre><code>&lt;time class="timeago" datetime="2012-07-18T07:51:50Z"&gt;about 8 hours ago&lt;/time&gt;
+</code></pre>
+
+<p>You can initialize the smart-time-ago in global like:</p>
+
+<pre><code>$().timeago();
+</code></pre>
+
+<p>It will watch all your relative time elements by only one TimeAgo instance.</p>
+
+<p>Or you can use it in a specify scope like.</p>
+
+<pre><code>&lt;div class="timeLables"&gt;
+ &lt;time class="timeago" datetime="2012-07-18T07:51:50Z"&gt;about 8 hours ago&lt;/time&gt;
+ &lt;time class="timeago" datetime="2012-07-18T06:51:50Z"&gt;about 9 hours ago&lt;/time&gt;
+&lt;/div&gt;
+
+$('.timelables').timeago();
+</code></pre>
+
+<p>It will create one TimeAgo instance to update the time elements in the div with timeLables class.</p>
+
+<p>However you can also create TimeAgo instance for every time element separately like:</p>
+
+<pre><code>$('.timeago').timeago();
+</code></pre>
+
+<p>BTW if you need dynamic add the time element to your document without refreshing the page or you want to refresh the timeago manually. You might need call the refresh function to refresh the smart-time-ago like:</p>
+
+<pre><code>$().timeago('refresh');
+</code></pre>
+
+<h2>Configuration</h2>
+
+<p>There are some default configuration in smart-time-ago</p>
+
+<pre><code>$.fn.timeago.defaults = {
+  selector: 'time.timeago',
+  attr: 'datetime',
+  dir: 'up',
+  suffix: 'ago'
+};
+</code></pre>
+
+<p>The 'time.timeago' is the default selector for smart-time-ago to watch and update.</p>
+
+<p>The 'datetime' is the default attribute to put the ISO8601 absolute time for smart-time-ago to parse.</p>
+
+<p>The 'up' in dir means the elements in your scope is display by time desc. which means if the dir sets to 'up'. smart-time-ago will treat the first element's time as the newest time to adjust the time interval. Oppositely if it set to 'down', smart-time-ago will treat the last element's time as the newewst time.</p>
+
+<p>The 'ago' in 'suffix' means the relative generated by smart-time-ago will look like '3 hours ago'.
+If you want the text looks like '3 hours from now', you might need change the 'suffix' to 'from now'.</p>
+
+<p>You can change the default configurations by passing the options to
+timeago function when initialize timeago like:</p>
+
+<pre><code>$().timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
+</code></pre>
+
+<h2>Credits</h2>
+
+<p><img src="https://pragmatic.ly/assets/vlogo.png" alt="pragmatic.ly"></p>
+
+<p>smart-time-ago is maintained and funded by <a href="https://pragmatic.ly/" title="Pragmatic.ly">Pragmatic.ly</a>.</p>
+
+<p>Thanks to all the contributors.</p>
+
+<p>Copyright (c) 2012 Terry Tai, Pragmatic.ly (<a href="mailto:terry@pragmatic.ly">terry@pragmatic.ly</a>, <a href="https://pragmatic.ly/">https://pragmatic.ly/</a>)</p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/pragmaticly">pragmaticly</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    
+  </body>
+</html>
