@@ -7,7 +7,7 @@
 
 class TimeAgo
   constructor: (element, options) ->
-    @startInterval = 30000
+    @startInterval = 5000
     @init(element, options)
 
   init: (element, options) ->
@@ -48,14 +48,25 @@ class TimeAgo
       newestTimeSrc = @$element.findAndSelf(@options.selector).filter(filter).attr(@options.attr)
       newestTime = @parse(newestTimeSrc)
       newestTimeInMinutes = @getTimeDistanceInMinutes(newestTime)
-      if newestTimeInMinutes < 44.5 and @startInterval != 30000
-        @startInterval = 30000
+      newestTimeInSeconds = newestTimeInMinutes * 60
+      if newestTimeInMinutes <= 1
+        if newestTimeInSeconds <= 9 and @startInterval != 5000 #5 seconds
+          @startInterval = 5000
+          restartTimer()
+        else if newestTimeInSeconds <= 59 and @startInterval != 10000 #10 seconds
+          @startInterval = 10000
+          restartTimer()
+      else if newestTimeInMinutes >= 2 and newestTimeInMinutes <= 45 and @startInterval != 60000 #1 minute
+        @startInterval = 60000
         @restartTimer()
-      else if newestTimeInMinutes >= 44.5 and newestTimeInMinutes < 89.5 and @startInterval != 60000 * 15
-        @startInterval = 60000 * 15
-        @restartTimer()
-      else if newestTimeInMinutes >= 89.5 and newestTimeInMinutes < 1439.5 and @startInterval != 60000 * 30
+      else if newestTimeInMinutes >= 46 and newestTimeInMinutes <= 89 and @startInterval != 60000 * 30 #30 minutes
         @startInterval = 60000 * 30
+        @restartTimer()
+      else if newestTimeInMinutes >= 90 and newestTimeInMinutes <= 2519 and @startInterval != 60000 * 60 #1 hour
+        @startInterval = 60000 * 60
+        @restartTimer()
+      else if newestTimeInMinutes >= 2520 and @startInterval != 60000 * 60 * 24 #1 day
+        @startInterval = 60000 * 60 * 24
         @restartTimer()
 
   timeAgoInWords: (timeString) ->
@@ -73,50 +84,47 @@ class TimeAgo
 
   getTimeDistanceInMinutes: (absolutTime) ->
     timeDistance = new Date().getTime() - absolutTime.getTime()
-    (Math.abs(timeDistance) / 1000) / 60
+    Math.round((Math.abs(timeDistance) / 1000) / 60.0)
 
   distanceOfTimeInWords: (dim) ->
-    # Words need to be the same with Rails
-    # 0 <-> 29 secs                                                             # => less than a minute
-    # 30 secs <-> 1 min, 29 secs                                                # => 1 minute
-    # 1 min, 30 secs <-> 44 mins, 29 secs                                       # => [2..44] minutes
-    # 44 mins, 30 secs <-> 89 mins, 29 secs                                     # => about 1 hour
-    # 89 mins, 30 secs <-> 23 hrs, 59 mins, 29 secs                             # => about [2..24] hours
-    # 23 hrs, 59 mins, 30 secs <-> 41 hrs, 59 mins, 29 secs                     # => 1 day
-    # 41 hrs, 59 mins, 30 secs  <-> 29 days, 23 hrs, 59 mins, 29 secs           # => [2..29] days
-    # 29 days, 23 hrs, 59 mins, 30 secs <-> 59 days, 23 hrs, 59 mins, 29 secs   # => about 1 month
-    # 59 days, 23 hrs, 59 mins, 30 secs <-> 1 yr minus 1 sec                    # => [2..12] months
-    # 1 yr <-> 1 yr, 3 months                                                   # => about 1 year
-    # 1 yr, 3 months <-> 1 yr, 9 months                                         # => over 1 year
-    # 1 yr, 9 months <-> 2 yr minus 1 sec                                       # => almost 2 years
-    # 2 yrs <-> max time or date                                                # => (same rules as 1 yr)
+    #TODO support i18n.
+    dis = Math.round(distanceInMinutes * 60) #distance in seconds
 
-    if dim >= 0 and dim < 0.5
-      "less than a minute"
-    else if dim >= 0.5 and dim < 1.5
-      "1 minute"
-    else if dim >= 1.5 and dim < 44.5
-      "#{ Math.round(dim) } minutes"
-    else if dim >= 44.5 and dim < 89.5
+    if dim <= 1
+      if dis <= 4
+        "less than 5 seconds"
+      else if dis >= 5 and dis <= 9
+        "less than 10 seconds"
+      else if dis >= 10 and dis <= 19
+        "less than 20 seconds"
+      else if dis >= 20 and dis <= 39
+        "half a minute"
+      else if dis >= 40 and dis <= 59
+        "less than a minute"
+      else
+        "1 minute"
+    else if dim >= 2 and dim <= 44
+      "#{ dim } minutes"
+    else if dim >= 45 and dim <= 89
       "about 1 hour"
-    else if dim >= 89.5 and dim < 1439.5 #23 hrs, 59 mins, 29 secs
-      "about #{ Math.round(dim / 60) } hours"
-    else if dim >= 1439.5 and dim < 2519.5 #41 hrs, 59 mins, 29 secs
+    else if dim >= 90 and dim <= 1439
+      "about #{ Math.round(dim / 60.0) } hours"
+    else if dim >= 1440 and dim <= 2519
       "1 day"
-    else if dim >= 2519.5 and dim < 43199.5 #29 days, 23 hrs, 59 mins, 29 secs
-      "#{ Math.round(dim / 1440) } days"
-    else if dim >= 43199.5 and dim < 86399.5 #59 days, 23 hrs, 59 mins, 29 secs
+    else if dim >= 2520 and dim <= 43199
+      "#{ Math.round(dim / 1440.0) } days"
+    else if dim >= 43200 and dim <= 86399
       "about 1 month"
-    else if dim >= 86399.5 and dim < 525599.5 #1 yr minus half minute
-      "#{ Math.round(dim / 43200) } months"
-    else if dim >= 525599.5 and dim < 655199.5 #1 yr, 3 months
+    else if dim >= 86400 and dim <= 525599 #1 yr
+      "#{ Math.round(dim / 43200.0) } months"
+    else if dim >= 525600 and dim <= 655200 #1 yr, 3 months
       "about 1 year"
-    else if dim >= 655199.5 and dim < 914399.5 #1 yr, 9 months
+    else if dim >= 655201 and dim <= 914400 #1 yr, 9 months
       "over 1 year"
-    else if dim >= 914399.5 and dim < 1051199.5 #2 yr minus half minute
+    else if dim >= 914400 and dim <= 1051200 #2 yr minus half minute
       "almost 2 years"
     else
-      "about #{Math.round(dim / 525600)} years"
+      "about #{ Math.round(dim / 525600.0) } years"
 
 $.fn.timeago = (options = {}) ->
   @each ->
