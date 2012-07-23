@@ -131,18 +131,14 @@ body {
 /*
  * Addresses outline displayed oddly in Chrome
  */
-a:focus {
+/*a:focus {
   outline: thin dotted;
-}
+}*/
 
 /*
  * Improves readability when focused and also mouse hovered in all browsers
  * people.opera.com/patrickl/experiments/keyboard/test
  */
-a:hover,
-a:active {
-  outline: 0;
-}
 
 /* =============================================================================
    Typography
@@ -151,7 +147,7 @@ a:active {
  * Addresses font sizes and margins set differently in IE6/7
  * Addresses font sizes within 'section' and 'article' in FF4+, Chrome, S5
  */
-h1 {
+/*h1 {
   font-size: 2em;
   margin: 0.67em 0;
 }
@@ -179,7 +175,8 @@ h5 {
 h6 {
   font-size: 0.75em;
   margin: 2.33em 0;
-}
+}*/
+
 
 /*
  * Addresses styling not present in IE7/8/9, S5, Chrome
@@ -218,10 +215,11 @@ mark {
 /*
  * Addresses margins set differently in IE6/7
  */
-p,
+/*p,
 pre {
   margin: 1em 0;
-}
+}*/
+
 
 /*
  * Corrects font family set oddly in IE6, S4/5, Chrome
@@ -286,7 +284,7 @@ dl,
 menu,
 ol,
 ul {
-  margin: 1em 0;
+  /*margin: 1em 0;*/
 }
 
 dd {
@@ -299,7 +297,7 @@ dd {
 menu,
 ol,
 ul {
-  padding: 0 0 0 40px;
+  /*padding: 0 0 0 40px;*/
 }
 
 /*
@@ -504,14 +502,14 @@ table {
 
 body {
   font: 14px/22px "Quattrocento Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #666;
-  font-weight: 300;
+  color:#46433a;
+/*  font-weight: 300;*/
   margin: 0px;
   padding: 0px 0 20px 0px;
   background: url(../images/body-background.png) #eae6d1;
 }
 
-h1, h2, h3, h4, h5, h6 {
+/*h1, h2, h3, h4, h5, h6 {
   color: #333;
   margin: 0 0 10px;
 }
@@ -563,11 +561,60 @@ strong {
   font-weight: bold;
   color: #333;
 }
+*/
+
+
+
+a{
+	text-decoration:none;
+	font-style:italic;
+	color:#ce534d;
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+ul{
+	list-style:none;
+}
+
+p{
+	line-height:20px;
+	padding:5px 0;
+}
+
+
+
+.footer{
+	width:60%;
+	margin:0 auto;
+	padding:10px;
+}
+
+.panel{
+	margin:20px 0;
+	position: relative;
+}
+
+h1{
+	padding-bottom:10px;
+	color:#46433a;
+}
+
+.footer{
+	text-align:center;
+    border-top:1px dotted #46433a;
+}
+
+
 
 .wrapper {
-  width: 650px;
+  /*width: 650px;*/
+  width:60%;
   margin: 0 auto;
   position: relative;
+  top:160px;
 }
 
 section img {
@@ -583,39 +630,35 @@ blockquote {
 
 code {
   font-family: "Lucida Sans", Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
-  font-size: 13px;
-  color: #efefef;
-  text-shadow: 0px 1px 0px #000;
-  margin: 0 4px;
-  padding: 2px 6px;
-  background: #333;
+  font-size: 12px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   -o-border-radius: 2px;
   -ms-border-radius: 2px;
   -khtml-border-radius: 2px;
-  border-radius: 2px;
+  border-radius: 2px;  
 }
 
 pre {
-  padding: 8px 15px;
-  background: #333333;
+  padding:5px;
+  background:#64b6b1;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   -o-border-radius: 3px;
   -ms-border-radius: 3px;
   -khtml-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #c7c7c7;
+  /*border: 1px solid #c7c7c7;*/
   overflow: auto;
   overflow-y: hidden;
 }
+
 pre code {
   margin: 0px;
   padding: 0px;
 }
 
-table {
+/*table {
   width: 100%;
   border-collapse: collapse;
 }
@@ -649,7 +692,7 @@ dt {
   color: #444;
   font-weight: 700;
 }
-
+*/
 header {
   padding: 25px 20px 40px 20px;
   margin: 0;
@@ -659,7 +702,8 @@ header {
   right: 0;
   width: 100%;
   text-align: center;
-  background: url(../images/background.png) #4276b6;
+  background:#ded4b9;
+ /* background: url(../images/background.png) #4276b6;*/
   -moz-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.75);
   -o-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.75);
@@ -670,8 +714,7 @@ header {
 }
 header h1 {
   font: 40px/48px "Copse", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #f3f3f3;
-  text-shadow: 0px 2px 0px #235796;
+  text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
   margin: 0px;
   white-space: nowrap;
   overflow: hidden;
@@ -679,8 +722,8 @@ header h1 {
   -o-text-overflow: ellipsis;
   -ms-text-overflow: ellipsis;
 }
+
 header p {
-  color: #d8d8d8;
   text-shadow: rgba(0, 0, 0, 0.2) 0 1px 0;
   font-size: 18px;
   margin: 0px;
@@ -688,14 +731,14 @@ header p {
 
 #banner {
   z-index: 100;
-  left: 0;
-  right: 50%;
-  height: 50px;
-  margin-right: -382px;
+  height:50px;
+  left:12%;
+  margin-left:85px;
+  right:19%;
   position: fixed;
   top: 115px;
-  background: #ffcc00;
-  border: 1px solid #f0b500;
+  background:#64b6b1;
+  border: 1px solid #64b6b1;
   -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
   -o-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
@@ -709,13 +752,15 @@ header p {
   padding-right: 10px;
 }
 #banner .button {
-  border: 1px solid #dba500;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffe788), color-stop(100%, #ffce38));
-  background: -webkit-linear-gradient(#ffe788, #ffce38);
-  background: -moz-linear-gradient(#ffe788, #ffce38);
-  background: -o-linear-gradient(#ffe788, #ffce38);
-  background: -ms-linear-gradient(#ffe788, #ffce38);
-  background: linear-gradient(#ffe788, #ffce38);
+  border: 1px solid #e08580;
+  background:#e08580;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e08580), color-stop(100%, #d8736e));
+  background: -webkit-linear-gradient(#e08580, #d8736e);
+  background: -moz-linear-gradient(#e08580, #d8736e);
+  background: -o-linear-gradient(#e08580, #d8736e); 
+  background: -ms-linear-gradient(#e08580, #d8736e);
+  background: linear-gradient(#e08580, #d8736e);
+
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   -o-border-radius: 2px;
@@ -726,25 +771,25 @@ header p {
   -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px rgba(0, 0, 0, 0.1);
   -o-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px rgba(0, 0, 0, 0.1);
-  background-color: #FFE788;
+  /*background-color: #FFE788;*/
   margin-left: 5px;
   padding: 10px 12px;
   margin-top: 6px;
   line-height: 14px;
-  font-size: 14px;
-  color: #333;
+  color: #46433a;
   font-weight: bold;
   display: inline-block;
   text-align: center;
 }
 #banner .button:hover {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffe788), color-stop(100%, #ffe788));
-  background: -webkit-linear-gradient(#ffe788, #ffe788);
-  background: -moz-linear-gradient(#ffe788, #ffe788);
-  background: -o-linear-gradient(#ffe788, #ffe788);
-  background: -ms-linear-gradient(#ffe788, #ffe788);
-  background: linear-gradient(#ffe788, #ffe788);
-  background-color: #ffeca0;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d8736e), color-stop(100%, #c75c57));
+  background: -webkit-linear-gradient(#d8736e, #c75c57);
+  background: -moz-linear-gradient(#d8736e, #c75c57);
+  background: -o-linear-gradient(#d8736e, #c75c57);
+  background: -ms-linear-gradient(#d8736e, #c75c57);
+  background: linear-gradient(#d8736e, #c75c57);
+  background-color: #d8736e;
+  text-decoration:none;
 }
 #banner .fork {
   position: fixed;
@@ -753,8 +798,6 @@ header p {
   padding: 10px 12px;
   margin-top: 6px;
   line-height: 14px;
-  font-size: 14px;
-  background-color: #FFE788;
 }
 #banner .downloads {
   float: right;
@@ -763,10 +806,8 @@ header p {
 #banner .downloads span {
   float: left;
   line-height: 52px;
-  font-size: 90%;
-  color: #9d7f0d;
   text-transform: uppercase;
-  text-shadow: rgba(255, 255, 255, 0.2) 0 1px 0;
+  /*text-shadow: rgba(255, 255, 255, 0.2) 0 1px 0;*/
 }
 #banner ul {
   list-style: none;
@@ -791,7 +832,7 @@ header p {
   background: url(../images/octocat-logo.png);
 }
 
-section {
+/*section {
   width: 590px;
   padding: 30px 30px 50px 30px;
   margin: 20px 0;
@@ -813,7 +854,7 @@ section {
 
 small {
   font-size: 12px;
-}
+}*/
 
 nav {
   width: 230px;
@@ -940,11 +981,11 @@ footer {
     left: 20px;
   }
 
-  section {
-    margin-top: 130px;
-    margin-bottom: 0px;
-    width: auto;
-  }
+  /*section {
+      margin-top: 130px;
+      margin-bottom: 0px;
+      width: auto;
+    }*/
 
   header ul, header p.view {
     position: static;
