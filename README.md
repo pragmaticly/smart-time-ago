@@ -1,17 +1,17 @@
-smart-time-ago
+Smart Time Ago
 ======================
 
-Smart Time Ago is a little jQuery library to update the relative timestamps in your document. (e.g "3 hours ago").
+Smart Time Ago is a little jQuery library to update the relative timestamps in your document intelligently. (e.g "3 hours ago").
 
 It's originally built for https://pragmatic.ly/. 
 
-It's inspired by another jQuery plugin http://timeago.yarp.com/ but give more flexibility and more features.
+It's inspired by another jQuery plugin http://timeago.yarp.com/ but give more flexibility and more intelligently.
 
 Installation
 ------------
 
 You can just use it as a jQuery plugin.
-If so, you just need copy the lib/timeago.js or src/timeago.coffee to your javascripts lib then load it after jQuery loaded.
+If so, you just need copy the lib/timeago.js or src/timeago.coffee to your project folder then load it after jQuery loaded.
 
 Or if you use node, you can install it from npm.
   
@@ -20,22 +20,24 @@ Or if you use node, you can install it from npm.
 Why Smart?
 -------------
 
-smart-time-ago will check and update the relative time every 30000 millisecond (30 seconds) in the scope you specify. Latter it will check the newest time in your scope then change the interval to a proper value. 
+Smart Time Ago will check and update the relative time every 60000 millisecond (60 seconds) in the scope you specify at the beginning. Latter it will check the newest time in your scope then tune the interval to a proper value. 
 
-For example, If the newest time in the scope you specify is '2 hours ago'. The smart-time-ago won't check and update the relative time every 30 seconds, because it's unneccessary. It will automaticly make the interval longer to 15 minutes.
+For example, if the newest time in the scope you specify is '2 hours ago'. There is no need to check and update the relative time every 60 seconds. Instead, Smart Time Ago will automaticly make the interval longer to 30 minutes.
 
 Rules:
   
-  The newest time less than 44.5 minutes, the interval will set to 0.5 minutes.
+  The newest time less than 44 minutes, the interval will set to 1 minute.
 
-  The newest time between 44.5, 89.5 minutes, the interval will set to 15 minutes.
+  The newest time between 44 and 89 minutes, the interval will set to 22 minutes.
 
-  The newest time more than 1 hour and a half, the interval will set to 30 minutes.
+  The newest time more between 90 minutes and 42 hours, the interval will set to 30 minutes.
+
+  The newest time more than 42 hours, the interval will set to half day.
 
 Usage
 ------------
 
-By default smart-time-ago will keep watch on the time elements with a class of timeago and a ISO8601 timestamp in datatime attribute:
+By default Smart Time Ago will keep watching on the time elements with a class of timeago and a ISO8601 timestamp in datatime attribute:
 
     <time class="timeago" datetime="2012-07-18T07:51:50Z">about 8 hours ago</time>
     
@@ -60,7 +62,7 @@ However you can also create TimeAgo instance for every time element separately l
 
     $('.timeago').timeago();
 
-BTW if you need dynamic add the time element to your document without refreshing the page or you want to refresh the timeago manually. You might need call the refresh function to refresh the smart-time-ago like:
+BTW if you need dynamic add the time element to your document without refreshing the page or you want to refresh the timeago manually. You might need call the refresh function to refresh the instance like:
 
     $().timeago('refresh');
 
@@ -68,7 +70,7 @@ BTW if you need dynamic add the time element to your document without refreshing
 Configuration
 --------------
 
-There are some default configuration in smart-time-ago
+There are some default configuration in Smart Time Ago:
 
     $.fn.timeago.defaults = {
       selector: 'time.timeago',
@@ -77,14 +79,14 @@ There are some default configuration in smart-time-ago
       suffix: 'ago'
     };
     
-The 'time.timeago' is the default selector for smart-time-ago to watch and update.
+The 'time.timeago' is the default selector to watch and update.
 
-The 'datetime' is the default attribute to put the ISO8601 absolute time for smart-time-ago to parse.
+The 'datetime' is the default attribute to put the ISO8601 absolute time to parse.
 
-The 'up' in dir means the elements in your scope is display by time desc. which means if the dir sets to 'up'. smart-time-ago will treat the first element's time as the newest time to adjust the time interval. Oppositely if it set to 'down', smart-time-ago will treat the last element's time as the newewst time.
+The 'up' in dir means the elements in your scope is display by time desc. which means if the dir sets to 'up'. Smart Time Ago will treat the first element's time as the newest time to adjust the time interval. Oppositely if it set to 'down', Smart Time Ago will treat the last element's time as the newewst time.
 
 
-The 'ago' in 'suffix' means the relative generated by smart-time-ago will look like '3 hours ago'.
+The 'ago' in 'suffix' means the relative generated by Smart Time Ago will look like '3 hours ago'.
 If you want the text looks like '3 hours from now', you might need change the 'suffix' to 'from now'.
 
 You can change the default configurations by passing the options to
@@ -92,12 +94,21 @@ timeago function when initialize timeago like:
 
     $().timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
 
+
+TODO
+-----
+The i18n will be supported in the near future.
+Will create a gem to better support Rails project.
+
+Thanks very much if you could contribute.
+
+
 Credits
 -------
 
 ![pragmatic.ly](https://pragmatic.ly/assets/vlogo.png)
 
-smart-time-ago is maintained and funded by [Pragmatic.ly](https://pragmatic.ly/ "Pragmatic.ly").
+Smart Time Ago is maintained and funded by [Pragmatic.ly](https://pragmatic.ly/ "Pragmatic.ly").
 
 Thanks to all the contributors.
 
