@@ -1,4 +1,4 @@
-# Smart Time Ago v0.0.1
+# Smart Time Ago v0.0.2
 
 # Copyright 2012, Terry Tai, Pragmatic.ly
 # https://pragmatic.ly/
@@ -88,7 +88,7 @@ class TimeAgo
 
   distanceOfTimeInWords: (dim) ->
     #TODO support i18n.
-    dis = Math.round(distanceInMinutes * 60) #distance in seconds
+    dis = Math.round(dim * 60) #distance in seconds
 
     if dim <= 1
       if dis <= 4
