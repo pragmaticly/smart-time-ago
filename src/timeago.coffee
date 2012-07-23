@@ -48,14 +48,15 @@ class TimeAgo
       newestTimeSrc = @$element.findAndSelf(@options.selector).filter(filter).attr(@options.attr)
       newestTime = @parse(newestTimeSrc)
       newestTimeInMinutes = @getTimeDistanceInMinutes(newestTime)
-      newestTimeInSeconds = newestTimeInMinutes * 60
+      newestTimeInSeconds = @getTimeDistanceInSeconds(newestTime)
+
       if newestTimeInMinutes <= 1
         if newestTimeInSeconds <= 9 and @startInterval != 5000 #5 seconds
           @startInterval = 5000
-          restartTimer()
-        else if newestTimeInSeconds <= 59 and @startInterval != 10000 #10 seconds
+          @restartTimer()
+        else if newestTimeInSeconds <= 60 and @startInterval != 10000 #10 seconds
           @startInterval = 10000
-          restartTimer()
+          @restartTimer()
       else if newestTimeInMinutes >= 2 and newestTimeInMinutes <= 45 and @startInterval != 60000 #1 minute
         @startInterval = 60000
         @restartTimer()
@@ -71,8 +72,7 @@ class TimeAgo
 
   timeAgoInWords: (timeString) ->
     absolutTime = @parse(timeString)
-    distanceInMinutes = @getTimeDistanceInMinutes(absolutTime)
-    @distanceOfTimeInWords(distanceInMinutes) + " #{@options.suffix}"
+    @distanceOfTimeInWords(absolutTime) + " #{@options.suffix}"
 
   parse: (iso8601) ->
     timeStr = $.trim(iso8601)
@@ -84,11 +84,16 @@ class TimeAgo
 
   getTimeDistanceInMinutes: (absolutTime) ->
     timeDistance = new Date().getTime() - absolutTime.getTime()
-    Math.round((Math.abs(timeDistance) / 1000) / 60.0)
+    Math.round((Math.abs(timeDistance) / 1000.0) / 60.0)
 
-  distanceOfTimeInWords: (dim) ->
+  getTimeDistanceInSeconds: (absolutTime) ->
+    timeDistance = new Date().getTime() - absolutTime.getTime()
+    Math.round((Math.abs(timeDistance) / 1000.0))
+
+  distanceOfTimeInWords: (absolutTime) ->
     #TODO support i18n.
-    dis = Math.round(dim * 60) #distance in seconds
+    dim = @getTimeDistanceInMinutes(absolutTime) #distance in minutes
+    dis = @getTimeDistanceInSeconds(absolutTime) #distance in seconds
 
     if dim <= 1
       if dis <= 4
@@ -117,11 +122,11 @@ class TimeAgo
       "about 1 month"
     else if dim >= 86400 and dim <= 525599 #1 yr
       "#{ Math.round(dim / 43200.0) } months"
-    else if dim >= 525600 and dim <= 655200 #1 yr, 3 months
+    else if dim >= 525600 and dim <= 655199 #1 yr, 3 months
       "about 1 year"
-    else if dim >= 655201 and dim <= 914400 #1 yr, 9 months
+    else if dim >= 655200 and dim <= 914399 #1 yr, 9 months
       "over 1 year"
-    else if dim >= 914400 and dim <= 1051200 #2 yr minus half minute
+    else if dim >= 914400 and dim <= 1051199 #2 yr minus half minute
       "almost 2 years"
     else
       "about #{ Math.round(dim / 525600.0) } years"
