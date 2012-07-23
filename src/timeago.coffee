@@ -7,7 +7,7 @@
 
 class TimeAgo
   constructor: (element, options) ->
-    @startInterval = 5000
+    @startInterval = 60000
     @init(element, options)
 
   init: (element, options) ->
@@ -48,26 +48,18 @@ class TimeAgo
       newestTimeSrc = @$element.findAndSelf(@options.selector).filter(filter).attr(@options.attr)
       newestTime = @parse(newestTimeSrc)
       newestTimeInMinutes = @getTimeDistanceInMinutes(newestTime)
-      newestTimeInSeconds = @getTimeDistanceInSeconds(newestTime)
 
-      if newestTimeInMinutes <= 1
-        if newestTimeInSeconds <= 9 and @startInterval != 5000 #5 seconds
-          @startInterval = 5000
-          @restartTimer()
-        else if newestTimeInSeconds <= 60 and @startInterval != 10000 #10 seconds
-          @startInterval = 10000
-          @restartTimer()
-      else if newestTimeInMinutes >= 2 and newestTimeInMinutes <= 45 and @startInterval != 60000 #1 minute
+      if newestTimeInMinutes >= 0 and newestTimeInMinutes <= 44 and @startInterval != 60000 #1 minute
         @startInterval = 60000
         @restartTimer()
-      else if newestTimeInMinutes >= 46 and newestTimeInMinutes <= 89 and @startInterval != 60000 * 30 #30 minutes
+      else if newestTimeInMinutes >= 45 and newestTimeInMinutes <= 89 and @startInterval != 60000 * 22 #22 minutes
+        @startInterval = 60000 * 22
+        @restartTimer()
+      else if newestTimeInMinutes >= 90 and newestTimeInMinutes <= 2519 and @startInterval != 60000 * 30 #half hour
         @startInterval = 60000 * 30
         @restartTimer()
-      else if newestTimeInMinutes >= 90 and newestTimeInMinutes <= 2519 and @startInterval != 60000 * 60 #1 hour
-        @startInterval = 60000 * 60
-        @restartTimer()
-      else if newestTimeInMinutes >= 2520 and @startInterval != 60000 * 60 * 24 #1 day
-        @startInterval = 60000 * 60 * 24
+      else if newestTimeInMinutes >= 2520 and @startInterval != 60000 * 60 * 12 #half day
+        @startInterval = 60000 * 60 * 12
         @restartTimer()
 
   timeAgoInWords: (timeString) ->
@@ -84,44 +76,30 @@ class TimeAgo
 
   getTimeDistanceInMinutes: (absolutTime) ->
     timeDistance = new Date().getTime() - absolutTime.getTime()
-    Math.round((Math.abs(timeDistance) / 1000.0) / 60.0)
-
-  getTimeDistanceInSeconds: (absolutTime) ->
-    timeDistance = new Date().getTime() - absolutTime.getTime()
-    Math.round((Math.abs(timeDistance) / 1000.0))
+    Math.round((Math.abs(timeDistance) / 1000) / 60)
 
   distanceOfTimeInWords: (absolutTime) ->
     #TODO support i18n.
     dim = @getTimeDistanceInMinutes(absolutTime) #distance in minutes
-    dis = @getTimeDistanceInSeconds(absolutTime) #distance in seconds
 
-    if dim <= 1
-      if dis <= 4
-        "less than 5 seconds"
-      else if dis >= 5 and dis <= 9
-        "less than 10 seconds"
-      else if dis >= 10 and dis <= 19
-        "less than 20 seconds"
-      else if dis >= 20 and dis <= 39
-        "half a minute"
-      else if dis >= 40 and dis <= 59
-        "less than a minute"
-      else
-        "1 minute"
+    if dim == 0
+      "less than a minute"
+    else if dim == 1
+      "1 minute"
     else if dim >= 2 and dim <= 44
       "#{ dim } minutes"
     else if dim >= 45 and dim <= 89
       "about 1 hour"
     else if dim >= 90 and dim <= 1439
-      "about #{ Math.round(dim / 60.0) } hours"
+      "about #{ Math.round(dim / 60) } hours"
     else if dim >= 1440 and dim <= 2519
       "1 day"
     else if dim >= 2520 and dim <= 43199
-      "#{ Math.round(dim / 1440.0) } days"
+      "#{ Math.round(dim / 1440) } days"
     else if dim >= 43200 and dim <= 86399
       "about 1 month"
     else if dim >= 86400 and dim <= 525599 #1 yr
-      "#{ Math.round(dim / 43200.0) } months"
+      "#{ Math.round(dim / 43200) } months"
     else if dim >= 525600 and dim <= 655199 #1 yr, 3 months
       "about 1 year"
     else if dim >= 655200 and dim <= 914399 #1 yr, 9 months
@@ -129,7 +107,7 @@ class TimeAgo
     else if dim >= 914400 and dim <= 1051199 #2 yr minus half minute
       "almost 2 years"
     else
-      "about #{ Math.round(dim / 525600.0) } years"
+      "about #{ Math.round(dim / 525600) } years"
 
 $.fn.timeago = (options = {}) ->
   @each ->

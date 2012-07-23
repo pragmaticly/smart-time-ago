@@ -13,7 +13,7 @@ describe("TimeAgo", function(){
 
   describe("constructor", function(){
     it("should contain the startInterval", function(){
-      expect(timeAgo.startInterval).toEqual(5000);
+      expect(timeAgo.startInterval).toEqual(60000);
     });
   });
 
@@ -107,51 +107,10 @@ describe("TimeAgo", function(){
       timeLabel.remove()
     });
 
-    describe("context: newestTimeInSeconds <= 9 and @startInterval != 5000", function(){
+
+    describe("context: newestTimeInMinutes >= 0 and newestTimeInMinutes <= 45 and @startInterval != 60000", function(){
       beforeEach(function(){
-        timeAgo.startInterval = 60000
-      });
-
-      it("should update interval to 5000", function(){
-        spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(0);
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(9);
-        timeAgo.updateInterval();
-        expect(timeAgo.startInterval).toEqual(5000);
-      });
-
-      it("should call restartTimer", function(){
-        spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(0);
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(9);
-        spyOn(timeAgo, 'restartTimer');
-        timeAgo.updateInterval();
-        expect(timeAgo.restartTimer).toHaveBeenCalled();
-      });
-    });
-
-    describe("context: newestTimeInSeconds <= 60 and @startInterval != 10000", function(){
-      beforeEach(function(){
-        timeAgo.startInterval = 60000
-      });
-
-      it("should update interval to 10000", function(){
-        spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(1);
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(60);
-        timeAgo.updateInterval();
-        expect(timeAgo.startInterval).toEqual(10000);
-      });
-
-      it("should call restartTimer", function(){
-        spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(1);
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(60);
-        spyOn(timeAgo, 'restartTimer');
-        timeAgo.updateInterval();
-        expect(timeAgo.restartTimer).toHaveBeenCalled();
-      });
-    });
-
-    describe("context: newestTimeInMinutes >= 2 and newestTimeInMinutes <= 45 and @startInterval != 60000", function(){
-      beforeEach(function(){
-        timeAgo.startInterval = 10000;
+        timeAgo.startInterval = 60000 * 22;
       });
 
       it("should update interval to 60000", function(){
@@ -168,15 +127,15 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: newestTimeInMinutes >= 46 and newestTimeInMinutes <= 89 and @startInterval != 60000 * 30", function(){
+    describe("context: newestTimeInMinutes >= 45 and newestTimeInMinutes <= 89 and @startInterval != 60000 * 30", function(){
       beforeEach(function(){
         timeAgo.startInterval = 60000;
       });
 
-      it("should update interval to 1800000", function(){
+      it("should update interval to 1320000", function(){
         spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(46);
         timeAgo.updateInterval();
-        expect(timeAgo.startInterval).toEqual(1800000);
+        expect(timeAgo.startInterval).toEqual(1320000);
       });
 
       it("should call restartTimer", function(){
@@ -189,13 +148,13 @@ describe("TimeAgo", function(){
 
     describe("context: newestTimeInMinutes >= 90 and newestTimeInMinutes <= 2519 and @startInterval != 60000 * 60", function(){
       beforeEach(function(){
-        timeAgo.startInterval = 1800000;
+        timeAgo.startInterval = 1320000;
       });
 
-      it("should update interval to 3600000", function(){
+      it("should update interval to 1800000", function(){
         spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(90);
         timeAgo.updateInterval();
-        expect(timeAgo.startInterval).toEqual(3600000);
+        expect(timeAgo.startInterval).toEqual(1800000);
       });
 
       it("should call restartTimer", function(){
@@ -208,13 +167,13 @@ describe("TimeAgo", function(){
 
     describe("context: newestTimeInMinutes >= 2520 and @startInterval != 60000 * 60 * 24", function(){
       beforeEach(function(){
-        timeAgo.startInterval = 3600000;
+        timeAgo.startInterval = 1800000;
       });
 
-      it("should update interval to 86400000", function(){
+      it("should update interval to 43200000", function(){
         spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(2520);
         timeAgo.updateInterval();
-        expect(timeAgo.startInterval).toEqual(86400000);
+        expect(timeAgo.startInterval).toEqual(43200000);
       });
 
       it("should call restartTimer", function(){
@@ -240,60 +199,19 @@ describe("TimeAgo", function(){
   });
 
   describe("distanceOfTimeInWords", function(){
-    describe("context: dis < 4", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(0);
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(4);
-      });
-      it("should return 'less than 5 seconds'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("less than 5 seconds");
-      });
-    });
 
-    describe("context:  dis >= 5 and dis <= 9", function(){
+    describe("context: dim == 0", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(0);
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(9);
-      });
-      it("should return 'less than 10 seconds'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("less than 10 seconds");
-      });
-    });
-
-    describe("context: dis >= 10 and dis <= 19", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(0);
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(19);
-      });
-      it("should return 'less than 20 seconds'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("less than 20 seconds");
-      });
-    });
-
-    describe("context: dis >= 20 and dis <= 39", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(0);
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(39);
-      });
-      it("should return 'half a minute'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("half a minute");
-      });
-    });
-
-    describe("context: dis >= 40 and dis <= 59", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(0);
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(59);
       });
       it("should return 'less than a minute'", function(){
         expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("less than a minute");
       });
     });
 
-    describe("context: dis = 60", function(){
+    describe("context: dim == 1", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(1);
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(60);
       });
       it("should return '1 minute'", function(){
         expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 minute");
