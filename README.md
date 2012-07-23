@@ -10,8 +10,9 @@ It's inspired by another jQuery plugin http://timeago.yarp.com/ but give more fl
 Installation
 ------------
 
-You can just use it as a jQuery plugin.
-If so, you just need copy the lib/timeago.js or src/timeago.coffee to your project folder then load it after jQuery.
+You can use it as a jQuery plugin. 
+
+    Just copy the lib/timeago.js or src/timeago.coffee to your project folder then load it after jQuery.
 
 Or if you use node, you can install it from npm.
   
