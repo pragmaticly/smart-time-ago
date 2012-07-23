@@ -1,7 +1,7 @@
 {
   "name": "smart-time-ago",
   "description": "a simeple lib to update the relative time on your page",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": ["timeago", "relative", "time"],
   "author": "poshboytl",
   "homepage": "https://pragmatic.ly/",
