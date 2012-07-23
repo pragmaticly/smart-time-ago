@@ -11,7 +11,7 @@ Installation
 ------------
 
 You can just use it as a jQuery plugin.
-If so, you just need copy the lib/timeago.js or src/timeago.coffee to your project folder then load it after jQuery loaded.
+If so, you just need copy the lib/timeago.js or src/timeago.coffee to your project folder then load it after jQuery.
 
 Or if you use node, you can install it from npm.
   
@@ -20,19 +20,19 @@ Or if you use node, you can install it from npm.
 Why Smart?
 -------------
 
-Smart Time Ago will check and update the relative time every 60000 millisecond (60 seconds) in the scope you specify at the beginning. Latter it will check the newest time in your scope then tune the interval to a proper value. 
+Smart Time Ago will check and update the relative time every 60000 millisecond (60 seconds) in the scope you specify at the beginning. Latter it will check the newest time in your scope then tune the checking time interval to a proper value. 
 
-For example, if the newest time in the scope you specify is '2 hours ago'. There is no need to check and update the relative time every 60 seconds. Instead, Smart Time Ago will automaticly make the interval longer to 30 minutes.
+For example, if the newest time in the scope you specify is '2 hours ago'. There is no need to check and update the relative time every 60 seconds. Instead, Smart Time Ago will automaticly make the checking time interval longer to 30 minutes.
 
 Rules:
   
-  The newest time less than 44 minutes, the interval will set to 1 minute.
+  The newest time less than 44 minutes, the checking time interval will set to 1 minute.
 
-  The newest time between 44 and 89 minutes, the interval will set to 22 minutes.
+  The newest time between 44 and 89 minutes, the checking time interval will set to 22 minutes.
 
-  The newest time more between 90 minutes and 42 hours, the interval will set to 30 minutes.
+  The newest time more between 90 minutes and 42 hours, the checking time interval will set to 30 minutes.
 
-  The newest time more than 42 hours, the interval will set to half day.
+  The newest time more than 42 hours, the checking time interval will set to half day.
 
 Usage
 ------------
