@@ -55,7 +55,7 @@ Or you can use it in a specify scope like.
      <time class="timeago" datetime="2012-07-18T06:51:50Z">about 9 hours ago</time>
     </div>
     
-    $('.timelables').timeago();
+    $('.timeLables').timeago();
  
 It will create one TimeAgo instance to update the time elements in the div with timeLables class.
 
