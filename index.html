@@ -87,7 +87,7 @@
 		<p>You can initialize the smart-time-ago in global like:</p>
 		<pre>
 		   <code>
-    $().timeago();</code>	
+    $('body').timeago();</code>
 		</pre>
 		<p>It will watch all your relative time elements by only one TimeAgo instance.</p>	
 		<p>Or you can use it in a specify scope like.</p>
@@ -109,7 +109,7 @@
 		<p>BTW if you need dynamic add the time element to your document without refreshing the page or you want to refresh the timeago manually. You might need call the refresh function to refresh the smart-time-ago like:</p>
 		<pre>
 			<code>
-    $().timeago('refresh');</code>
+    $('.timeago').timeago('refresh');</code>
 		</pre>
 	</div> <!-- Usage End -->
 
@@ -133,7 +133,7 @@
 		<p>You can change the default configurations by passing the options to timeago function when initialize timeago like:</p>
 		<pre>
 		   <code>
-    $().timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})</code>	
+    $('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})</code>
 		</pre>
 	</div> <!-- Configuration End -->
 
