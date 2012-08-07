@@ -1,4 +1,4 @@
-# Smart Time Ago v0.0.2
+# Smart Time Ago v0.1.0
 
 # Copyright 2012, Terry Tai, Pragmatic.ly
 # https://pragmatic.ly/
