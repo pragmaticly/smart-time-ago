@@ -44,7 +44,7 @@ By default Smart Time Ago will keep watching on the time elements with a class o
     
 You can initialize the smart-time-ago in global like:
 
-    $().timeago();
+    $('body').timeago();
     
 It will watch all your relative time elements by only one TimeAgo instance.
 
@@ -65,7 +65,7 @@ However you can also create TimeAgo instance for every time element separately l
 
 BTW if you need dynamic add the time element to your document without refreshing the page or you want to refresh the timeago manually. You might need call the refresh function to refresh the instance like:
 
-    $().timeago('refresh');
+    $('.timeago').timeago('refresh');
 
     
 Configuration
