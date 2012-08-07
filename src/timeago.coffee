@@ -128,7 +128,6 @@ $.fn.timeago.defaults =
   selector: 'time.timeago'
   attr: 'datetime'
   dir: 'up'
-  suffix: 'ago'
   lang:
     units:
       second: "second"
@@ -148,4 +147,5 @@ $.fn.timeago.defaults =
       about: "about"
       over: "over"
       almost: "almost"
+    suffix: 'ago'
 

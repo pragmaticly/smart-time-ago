@@ -17,3 +17,4 @@ $.fn.timeago.defaults.lang =
     about: "about"
     over: "over"
     almost: "almost"
+  suffix: "ago"
