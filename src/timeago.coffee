@@ -6,11 +6,11 @@
 # https://github.com/pragmaticly/smart-time-ago/blob/master/LICENSE
 
 class TimeAgo
-  
+
   constructor: (element, options) ->
     @startInterval = 60000
     @init(element, options)
-  
+
   init: (element, options) ->
     @$element = $(element)
     @options = $.extend({}, $.fn.timeago.defaults, options)
@@ -131,21 +131,21 @@ $.fn.timeago.defaults =
   suffix: 'ago'
   lang:
     units:
-    	second: "second"
-    	seconds: "seconds"
-    	minute: "minute"
-    	minutes: "minutes"
-    	hour: "hour"
-    	hours: "hours"
-    	day: "day"
-    	days: "days"
-    	month: "month"
-    	months: "months"
-    	year: "year"
-    	years: "years"
+      second: "second"
+      seconds: "seconds"
+      minute: "minute"
+      minutes: "minutes"
+      hour: "hour"
+      hours: "hours"
+      day: "day"
+      days: "days"
+      month: "month"
+      months: "months"
+      year: "year"
+      years: "years"
     prefixes:
-    	lt: "less than a"
-    	about: "about"
-    	over: "over"
-    	almost: "almost"
-  
+      lt: "less than a"
+      about: "about"
+      over: "over"
+      almost: "almost"
+
