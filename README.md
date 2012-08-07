@@ -112,4 +112,6 @@ Smart Time Ago is maintained and funded by [Pragmatic.ly](https://pragmatic.ly/ 
 
 Thanks to all the contributors.
 
+Especially to [unRob](https://github.com/unRob) for the i18n support.
+
 Copyright (c) 2012 Terry Tai, Pragmatic.ly (terry@pragmatic.ly, https://pragmatic.ly/)
