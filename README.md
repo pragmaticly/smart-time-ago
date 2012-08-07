@@ -93,12 +93,11 @@ If you want the text looks like '3 hours from now', you might need change the 's
 You can change the default configurations by passing the options to
 timeago function when initialize timeago like:
 
-    $().timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
+    $('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: 'from now'})
 
 
 TODO
 -----
-The i18n will be supported in the near future.
 Will create a gem to better support Rails project.
 
 Thanks very much if you could contribute.
