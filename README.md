@@ -27,13 +27,13 @@ For example, if the newest time in the scope you specify is '2 hours ago'. There
 
 Rules:
   
-  The newest time less than 44 minutes, the checking time interval will set to 1 minute.
+  The newest time is less than 44 minutes, the checking time interval will set to 1 minute.
 
-  The newest time between 44 and 89 minutes, the checking time interval will set to 22 minutes.
+  The newest time is between 44 and 89 minutes, the checking time interval will set to 22 minutes.
 
-  The newest time more between 90 minutes and 42 hours, the checking time interval will set to 30 minutes.
+  The newest time is between 90 minutes and 42 hours, the checking time interval will set to 30 minutes.
 
-  The newest time more than 42 hours, the checking time interval will set to half day.
+  The newest time is more than 42 hours, the checking time interval will set to half day.
 
 Usage
 ------------
