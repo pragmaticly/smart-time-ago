@@ -17,4 +17,5 @@ $.fn.timeago.defaults.lang =
     about: "大约"
     over: "超过"
     almost: "接近"
+    ago: ""
   suffix: "之前"

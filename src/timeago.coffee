@@ -1,4 +1,4 @@
-# Smart Time Ago v0.1.0
+# Smart Time Ago v0.1.1
 
 # Copyright 2012, Terry Tai, Pragmatic.ly
 # https://pragmatic.ly/
@@ -65,7 +65,7 @@ class TimeAgo
 
   timeAgoInWords: (timeString) ->
     absolutTime = @parse(timeString)
-    @distanceOfTimeInWords(absolutTime) + "#{@options.lang.suffix}"
+    "#{@options.lang.prefixes.ago}#{@distanceOfTimeInWords(absolutTime)}#{@options.lang.suffix}"
 
   parse: (iso8601) ->
     timeStr = $.trim(iso8601)
@@ -147,5 +147,6 @@ $.fn.timeago.defaults =
       about: "about"
       over: "over"
       almost: "almost"
+      ago: ""
     suffix: ' ago'
 
