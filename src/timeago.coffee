@@ -82,33 +82,34 @@ class TimeAgo
   distanceOfTimeInWords: (absolutTime) ->
     #TODO support i18n.
     dim = @getTimeDistanceInMinutes(absolutTime) #distance in minutes
+    space = if @options.spacing then ' ' else ''
 
     if dim == 0
       "#{ @options.lang.prefixes.lt } #{ @options.lang.units.minute }"
     else if dim == 1
-      "1 #{ @options.lang.units.minute }"
+      "1#{ space }#{ @options.lang.units.minute }"
     else if dim >= 2 and dim <= 44
-      "#{ dim } #{ @options.lang.units.minutes }"
+      "#{ dim }#{ space }#{ @options.lang.units.minutes }"
     else if dim >= 45 and dim <= 89
-      "#{ @options.lang.prefixes.about } 1 #{ @options.lang.units.hour }"
+      "#{ @options.lang.prefixes.about } 1#{ space }#{ @options.lang.units.hour }"
     else if dim >= 90 and dim <= 1439
-      "#{ @options.lang.prefixes.about } #{ Math.round(dim / 60) } #{ @options.lang.units.hours }"
+      "#{ @options.lang.prefixes.about } #{ Math.round(dim / 60) }#{ space }#{ @options.lang.units.hours }"
     else if dim >= 1440 and dim <= 2519
-      "1 #{ @options.lang.units.day }"
+      "1#{ space }#{ @options.lang.units.day }"
     else if dim >= 2520 and dim <= 43199
-      "#{ Math.round(dim / 1440) } #{ @options.lang.units.days }"
+      "#{ Math.round(dim / 1440) }#{ space }#{ @options.lang.units.days }"
     else if dim >= 43200 and dim <= 86399
-      "#{ @options.lang.prefixes.about } 1 #{ @options.lang.units.month }"
+      "#{ @options.lang.prefixes.about } 1#{ space }#{ @options.lang.units.month }"
     else if dim >= 86400 and dim <= 525599 #1 yr
-      "#{ Math.round(dim / 43200) } #{ @options.lang.units.months }"
+      "#{ Math.round(dim / 43200) }#{ space }#{ @options.lang.units.months }"
     else if dim >= 525600 and dim <= 655199 #1 yr, 3 months
-      "#{ @options.lang.prefixes.about } 1 #{ @options.lang.units.year }"
+      "#{ @options.lang.prefixes.about } 1#{ space }#{ @options.lang.units.year }"
     else if dim >= 655200 and dim <= 914399 #1 yr, 9 months
-      "#{ @options.lang.prefixes.over } 1 #{ @options.lang.units.year }"
+      "#{ @options.lang.prefixes.over } 1#{ space }#{ @options.lang.units.year }"
     else if dim >= 914400 and dim <= 1051199 #2 yr minus half minute
-      "#{ @options.lang.prefixes.almost } 2 #{ @options.lang.units.years }"
+      "#{ @options.lang.prefixes.almost } 2#{ space }#{ @options.lang.units.years }"
     else
-      "#{ @options.lang.prefixes.about } #{ Math.round(dim / 525600) } #{ @options.lang.units.years }"
+      "#{ @options.lang.prefixes.about } #{ Math.round(dim / 525600) }#{ space }#{ @options.lang.units.years }"
 
 $.fn.timeago = (options = {}) ->
   @each ->
@@ -127,6 +128,7 @@ $.fn.timeago.Constructor = TimeAgo
 $.fn.timeago.defaults =
   selector: 'time.timeago'
   attr: 'datetime'
+  spacing: true
   dir: 'up'
   lang:
     units:

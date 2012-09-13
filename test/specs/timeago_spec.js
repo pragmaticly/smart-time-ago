@@ -319,4 +319,19 @@ describe("TimeAgo", function(){
 
   });
 
+  describe("options", function(){
+    describe("spacing == false", function() {
+      beforeEach(function(){
+        timeAgo.options.spacing = false;
+        spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(1);
+      });
+      it("should return '1minute'", function() {
+        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1minute");
+      });
+      afterEach(function(){
+        timeAgo.options.spacing = true;
+      });
+    });
+  });
+
 });
