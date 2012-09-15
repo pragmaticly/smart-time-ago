@@ -312,7 +312,7 @@ describe("TimeAgo", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(1051200);
       });
-      it("should return 'almost 2 years'", function(){
+      it("should return 'about 2 years'", function(){
         expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("about 2 years");
       });
     });
