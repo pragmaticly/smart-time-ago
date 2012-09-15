@@ -65,7 +65,8 @@ class TimeAgo
 
   timeAgoInWords: (timeString) ->
     absolutTime = @parse(timeString)
-    "#{@options.lang.prefixes.ago}#{@distanceOfTimeInWords(absolutTime)}#{@options.lang.suffix}"
+    suffix = @options.suffix or @options.lang.suffix
+    "#{@options.lang.prefixes.ago}#{@distanceOfTimeInWords(absolutTime)}#{suffix}"
 
   parse: (iso8601) ->
     timeStr = $.trim(iso8601)

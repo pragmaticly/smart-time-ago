@@ -432,6 +432,26 @@ describe("TimeAgo", function(){
         timeAgo.options.approximate = true;
       });
     });
+
+    describe("suffix == ' from now'", function(){
+      beforeEach(function(){
+        timeAgo.options.suffix = ' from now';
+      });
+
+      describe("context: >= 1051200", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(1051200);
+        });
+        it("should return 'about 2 years from now'", function(){
+          expect(timeAgo.timeAgoInWords(new Date().toString())).toEqual("about 2 years from now");
+        });
+      });
+
+      afterEach(function(){
+        timeAgo.options.suffix = ' ago';
+      });
+    });
+
   });
 
 });
