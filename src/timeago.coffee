@@ -13,10 +13,10 @@ class TimeAgo
     @refresh()
 
   startTimer: ->
-    @interval = setInterval(@refresh.bind(@), @startInterval)
+    @interval = setTimeout(@refresh.bind(@), @startInterval)
 
   stopTimer: ->
-    clearInterval(@interval)
+    clearTimeout(@interval)
 
   restartTimer: ->
     @stopTimer()
