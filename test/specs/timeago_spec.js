@@ -320,7 +320,7 @@ describe("TimeAgo", function(){
   });
 
   describe("options", function(){
-    describe("spacing == false", function() {
+    describe("spacing == false", function(){
       beforeEach(function(){
         timeAgo.options.spacing = false;
         spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(1);
@@ -330,6 +330,106 @@ describe("TimeAgo", function(){
       });
       afterEach(function(){
         timeAgo.options.spacing = true;
+      });
+    });
+
+    describe("approximate == false", function(){
+      beforeEach(function(){
+        timeAgo.options.approximate = false;
+      });
+
+      describe("context: dim >= 45 and dim <= 89", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(89);
+        });
+        it("should return '1 hour'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 hour");
+        });
+      });
+
+      describe("context: dim >= 90 and dim <= 1439", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(120);
+        });
+        it("should return '2 hours'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 hours");
+        });
+      });
+
+      describe("context: dim >= 1440 and dim <= 2519", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(2519);
+        });
+        it("should return '1 day'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 day");
+        });
+      });
+
+      describe("context: dim >= 2520 and dim <= 43199", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(2520);
+        });
+        it("should return '2 days'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 days");
+        });
+      });
+
+      describe("context: dim >= 43200 and dim <= 86399", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(86399);
+        });
+        it("should return '1 month'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 month");
+        });
+      });
+
+      describe("context: dim >= 86400 and dim <= 525599", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(525599);
+        });
+        it("should return '12 months'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("12 months");
+        });
+      });
+
+      describe("context: dim >= 525600 and dim <= 655199", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(525600);
+        });
+        it("should return '1 year'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 year");
+        });
+      });
+
+      describe("context: dim >= 655200 and dim <= 914399", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(655200);
+        });
+        it("should return '1 year'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 year");
+        });
+      });
+
+      describe("context: dim >= 914400 and dim <= 1051199", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(914400);
+        });
+        it("should return '2 years'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 years");
+        });
+      });
+
+      describe("context: >= 1051200", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInMinutes').andReturn(1051200);
+        });
+        it("should return '2 years'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 years");
+        });
+      });
+
+      afterEach(function(){
+        timeAgo.options.approximate = true;
       });
     });
   });
