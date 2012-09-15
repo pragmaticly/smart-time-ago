@@ -8,25 +8,18 @@
 class TimeAgo
 
   constructor: (element, options) ->
-    @startInterval = 60000
-    @init(element, options)
-
-  init: (element, options) ->
     @$element = $(element)
     @options = $.extend({}, $.fn.timeago.defaults, options)
-    @updateTime()
-    @startTimer()
+    @refresh()
 
   startTimer: ->
-    self = @
-    @interval = setInterval ( ->
-      self.refresh()
-    ), @startInterval
+    @interval = setInterval(@refresh.bind(@), @startInterval)
 
   stopTimer: ->
     clearInterval(@interval)
 
   restartTimer: ->
+    console.log('restarting timer', @startInterval)
     @stopTimer()
     @startTimer()
 
@@ -48,25 +41,25 @@ class TimeAgo
         filter = ":last"
       newestTimeSrc = @$element.findAndSelf(@options.selector).filter(filter).attr(@options.attr)
       newestTime = @parse(newestTimeSrc)
-      newestTimeInSeconds = @getTimeDistanceInSeconds(newestTime)
+      dis = @getTimeDistanceInSeconds(newestTime)
 
-      if @options.showSeconds and @options.showNow and newestTimeInSeconds < @options.showNow
-        @startInterval = @options.showNow - newestTimeInSeconds
+      if @options.showSeconds and @options.showNow and dis < @options.showNow
+        @startInterval = (@options.showNow - dis) * 1000
         @restartTimer()
-      else if @options.showSeconds and newestTimeInSeconds < 60 and @startInterval != 1000 #1 second
+      else if @options.showSeconds and dis < 60
         @startInterval = 1000
         @restartTimer()
-      else if newestTimeInSeconds < 2700 and @startInterval != 60000 #1 minute
-        @startInterval = 60000
+      else if dis < 2700
+        @startInterval = (60 - dis % 60) * 1000
         @restartTimer()
-      else if newestTimeInSeconds < 5400 and @startInterval != 60000 * 22 #22 minutes
-        @startInterval = 60000 * 22
+      else if dis < 5400
+        @startInterval = (5400 - dis) * 1000
         @restartTimer()
-      else if newestTimeInSeconds < 151200 and @startInterval != 60000 * 30 #half hour
-        @startInterval = 60000 * 30
+      else if dis < 151200
+        @startInterval = (3600 - dis % 3600) * 1000
         @restartTimer()
-      else if @startInterval != 60000 * 60 * 12 #half day
-        @startInterval = 60000 * 60 * 12
+      else
+        @startInterval = (86400 - dis % 86400) * 1000
         @restartTimer()
 
   timeAgoInWords: (timeString) ->
@@ -94,43 +87,43 @@ class TimeAgo
 
   distanceOfTimeInWords: (absolutTime) ->
     #TODO support i18n.
-    dim = @getTimeDistanceInSeconds(absolutTime) #distance in minutes
+    dis = @getTimeDistanceInSeconds(absolutTime) #distance in minutes
     space = if @options.spacing then ' ' else ''
 
-    if dim < 60
+    if dis < 60
       if @options.showSeconds
-        if @options.showNow and @options.showNow > dim
+        if @options.showNow and @options.showNow > dis
           @options.lang.prefixes.now
-        else if dim == 0 or dim == 1
+        else if dis == 0 or dis == 1
           "1#{ space }#{ @options.lang.units.second }"
         else
-          "#{ dim }#{ space }#{ @options.lang.units.seconds }"
+          "#{ dis }#{ space }#{ @options.lang.units.seconds }"
       else
         "#{ if @options.approximate then @options.lang.prefixes.lt + " " else "1" + space }#{ @options.lang.units.minute }"
-    else if dim < 120
+    else if dis < 120
       "1#{ space }#{ @options.lang.units.minute }"
-    else if dim < 2700
-      "#{ Math.round(dim / 60) }#{ space }#{ @options.lang.units.minutes }"
-    else if dim < 5400
+    else if dis < 2700
+      "#{ Math.round(dis / 60) }#{ space }#{ @options.lang.units.minutes }"
+    else if dis < 5400
       "#{ if @options.approximate then @options.lang.prefixes.about + " " else ""  }1#{ space }#{ @options.lang.units.hour }"
-    else if dim < 86400
-      "#{ if @options.approximate then @options.lang.prefixes.about + " " else "" }#{ Math.round(dim / 3600) }#{ space }#{ @options.lang.units.hours }"
-    else if dim < 151200
+    else if dis < 86400
+      "#{ if @options.approximate then @options.lang.prefixes.about + " " else "" }#{ Math.round(dis / 3600) }#{ space }#{ @options.lang.units.hours }"
+    else if dis < 151200
       "1#{ space }#{ @options.lang.units.day }"
-    else if dim < 2592000
-      "#{ Math.round(dim / 86400) }#{ space }#{ @options.lang.units.days }"
-    else if dim < 5184000
+    else if dis < 2592000
+      "#{ Math.round(dis / 86400) }#{ space }#{ @options.lang.units.days }"
+    else if dis < 5184000
       "#{ if @options.approximate then @options.lang.prefixes.about + " " else "" }1#{ space }#{ @options.lang.units.month }"
-    else if dim < 31536000 #1 yr
-      "#{ Math.round(dim / 2592000) }#{ space }#{ @options.lang.units.months }"
-    else if dim < 39312000 #1 yr, 3 months
+    else if dis < 31536000 #1 yr
+      "#{ Math.round(dis / 2592000) }#{ space }#{ @options.lang.units.months }"
+    else if dis < 39312000 #1 yr, 3 months
       "#{ if @options.approximate then @options.lang.prefixes.about + " " else "" }1#{ space }#{ @options.lang.units.year }"
-    else if dim < 54864000 #1 yr, 9 months
+    else if dis < 54864000 #1 yr, 9 months
       "#{ if @options.approximate then @options.lang.prefixes.over + " " else "" }1#{ space }#{ @options.lang.units.year }"
-    else if dim < 63072000 #2 yr minus half minute
+    else if dis < 63072000 #2 yr minus half minute
       "#{ if @options.approximate then @options.lang.prefixes.almost + " " else "" }2#{ space }#{ @options.lang.units.years }"
     else
-      "#{ if @options.approximate then @options.lang.prefixes.about + " " else "" }#{ Math.round(dim / 31536000) }#{ space }#{ @options.lang.units.years }"
+      "#{ if @options.approximate then @options.lang.prefixes.about + " " else "" }#{ Math.round(dis / 31536000) }#{ space }#{ @options.lang.units.years }"
 
 $.fn.timeago = (options = {}) ->
   @each ->

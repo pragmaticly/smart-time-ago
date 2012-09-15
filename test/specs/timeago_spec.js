@@ -11,37 +11,6 @@ describe("TimeAgo", function(){
     timeAgo = new TimeAgo("time.timeago", {})
   });
 
-  describe("constructor", function(){
-    it("should contain the startInterval", function(){
-      expect(timeAgo.startInterval).toEqual(60000);
-    });
-  });
-
-  describe("#init", function(){
-    it("should set $element", function(){
-      timeAgo.init("time.timeago", {});
-      expect(timeAgo.$element).toEqual($("time.timeago"));
-    });
-
-    it("should load the options", function(){
-      spyOn($, 'extend').andReturn("spy");
-      timeAgo.init("time.timeago", {});
-      expect(timeAgo.options).toEqual("spy");
-    });
-
-    it("should call updateTime", function(){
-      spyOn(timeAgo, 'updateTime');
-      timeAgo.init("time.timeago", {});
-      expect(timeAgo.updateTime).toHaveBeenCalled();
-    });
-
-    it("should call startTimer", function(){
-      spyOn(timeAgo, "startTimer");
-      timeAgo.init("time.time", {});
-      expect(timeAgo.startTimer).toHaveBeenCalled();
-    });
-  });
-
   describe("#startTimer", function(){
     it("should call setInterval", function(){
       spyOn(window, 'setInterval');
@@ -132,10 +101,10 @@ describe("TimeAgo", function(){
         timeAgo.startInterval = 60000;
       });
 
-      it("should update interval to 1320000", function(){
+      it("should update interval to (5400 - dis) * 1000", function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(2760);
         timeAgo.updateInterval();
-        expect(timeAgo.startInterval).toEqual(1320000);
+        expect(timeAgo.startInterval).toEqual((5400 - 2760) * 1000);
       });
 
       it("should call restartTimer", function(){
@@ -170,10 +139,10 @@ describe("TimeAgo", function(){
         timeAgo.startInterval = 1800000;
       });
 
-      it("should update interval to 43200000", function(){
+      it("should update interval to (86400 - dis % 86400) * 1000", function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(151200);
         timeAgo.updateInterval();
-        expect(timeAgo.startInterval).toEqual(43200000);
+        expect(timeAgo.startInterval).toEqual((86400 - 151200 % 86400) * 1000);
       });
 
       it("should call restartTimer", function(){
@@ -200,7 +169,7 @@ describe("TimeAgo", function(){
 
   describe("distanceOfTimeInWords", function(){
 
-    describe("context: dim == 0", function(){
+    describe("context: dis == 0", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(0);
       });
@@ -209,7 +178,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim == 60", function(){
+    describe("context: dis == 60", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(60);
       });
@@ -218,7 +187,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 120 and dim < 2700", function(){
+    describe("context: dis >= 120 and dim < 2700", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(120);
       });
@@ -227,7 +196,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 2700 and dim < 5400", function(){
+    describe("context: dis >= 2700 and dim < 5400", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5300);
       });
@@ -236,7 +205,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 5400 and dim < 86400", function(){
+    describe("context: dis >= 5400 and dim < 86400", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(7200);
       });
@@ -245,7 +214,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 86400 and dim < 151200", function(){
+    describe("context: dis >= 86400 and dim < 151200", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(151100);
       });
@@ -254,7 +223,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 151200 and dim < 2592000", function(){
+    describe("context: dis >= 151200 and dim < 2592000", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(151200);
       });
@@ -263,7 +232,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 2592000 and dim < 5184000", function(){
+    describe("context: dis >= 2592000 and dim < 5184000", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5183000);
       });
@@ -272,7 +241,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 5184000 and dim < 31536000", function(){
+    describe("context: dis >= 5184000 and dim < 31536000", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(31535940);
       });
@@ -281,7 +250,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 31536000 and dim < 39312000", function(){
+    describe("context: dis >= 31536000 and dim < 39312000", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(31536000);
       });
@@ -290,7 +259,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 39312000 and dim < 54864000", function(){
+    describe("context: dis >= 39312000 and dim < 54864000", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(39312000);
       });
@@ -299,7 +268,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 54864000 and dim < 63072000", function(){
+    describe("context: dis >= 54864000 and dim < 63072000", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(54864000);
       });
@@ -308,7 +277,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: dim >= 63072000", function(){
+    describe("context: dis >= 63072000", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(63072000);
       });
@@ -338,7 +307,7 @@ describe("TimeAgo", function(){
         timeAgo.options.approximate = false;
       });
 
-      describe("context: dim == 0", function(){
+      describe("context: dis == 0", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(0);
         });
@@ -347,7 +316,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim == 60", function(){
+      describe("context: dis == 60", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(60);
         });
@@ -356,7 +325,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 120 and dim < 2700", function(){
+      describe("context: dis >= 120 and dim < 2700", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(120);
         });
@@ -365,7 +334,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 2700 and dim < 5400", function(){
+      describe("context: dis >= 2700 and dim < 5400", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5300);
         });
@@ -374,7 +343,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 5400 and dim < 86400", function(){
+      describe("context: dis >= 5400 and dim < 86400", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(7200);
         });
@@ -383,7 +352,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 86400 and dim < 151200", function(){
+      describe("context: dis >= 86400 and dim < 151200", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(151100);
         });
@@ -392,7 +361,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 151200 and dim < 2592000", function(){
+      describe("context: dis >= 151200 and dim < 2592000", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(151200);
         });
@@ -401,7 +370,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 2592000 and dim < 5184000", function(){
+      describe("context: dis >= 2592000 and dim < 5184000", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5183000);
         });
@@ -410,7 +379,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 5184000 and dim < 31536000", function(){
+      describe("context: dis >= 5184000 and dim < 31536000", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(31535940);
         });
@@ -419,7 +388,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 31536000 and dim < 39312000", function(){
+      describe("context: dis >= 31536000 and dim < 39312000", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(31536000);
         });
@@ -428,7 +397,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 39312000 and dim < 54864000", function(){
+      describe("context: dis >= 39312000 and dim < 54864000", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(39312000);
         });
@@ -437,7 +406,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 54864000 and dim < 63072000", function(){
+      describe("context: dis >= 54864000 and dim < 63072000", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(54864000);
         });
@@ -446,7 +415,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim >= 63072000", function(){
+      describe("context: dis >= 63072000", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(63072000);
         });
@@ -465,7 +434,7 @@ describe("TimeAgo", function(){
         timeAgo.options.suffix = ' from now';
       });
 
-      describe("context: dim >= 63072000", function(){
+      describe("context: dis >= 63072000", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(63072000);
         });
@@ -484,7 +453,7 @@ describe("TimeAgo", function(){
         timeAgo.options.showSeconds = true;
       });
 
-      describe("context: dim == 0", function(){
+      describe("context: dis == 0", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(0);
         });
@@ -493,7 +462,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim == 1", function(){
+      describe("context: dis == 1", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(1);
         });
@@ -502,7 +471,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim == 30", function(){
+      describe("context: dis == 30", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(30);
         });
@@ -522,7 +491,7 @@ describe("TimeAgo", function(){
         timeAgo.options.showNow = 15;
       });
 
-      describe("context: dim == 5", function(){
+      describe("context: dis == 5", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5);
         });
@@ -531,7 +500,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: dim == 20", function(){
+      describe("context: dis == 20", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(20);
         });
