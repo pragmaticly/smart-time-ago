@@ -50,16 +50,19 @@ class TimeAgo
       newestTime = @parse(newestTimeSrc)
       newestTimeInSeconds = @getTimeDistanceInSeconds(newestTime)
 
-      if newestTimeInSeconds >= 0 and newestTimeInSeconds < 2700 and @startInterval != 60000 #1 minute
+      if @options.showSeconds and newestTimeInSeconds < 60 and @startInterval != 1000 #1 second
+        @startInterval = 1000
+        @restartTimer()
+      else if newestTimeInSeconds < 2700 and @startInterval != 60000 #1 minute
         @startInterval = 60000
         @restartTimer()
-      else if newestTimeInSeconds >= 2700 and newestTimeInSeconds < 5400 and @startInterval != 60000 * 22 #22 minutes
+      else if newestTimeInSeconds < 5400 and @startInterval != 60000 * 22 #22 minutes
         @startInterval = 60000 * 22
         @restartTimer()
-      else if newestTimeInSeconds >= 5400 and newestTimeInSeconds < 151200 and @startInterval != 60000 * 30 #half hour
+      else if newestTimeInSeconds < 151200 and @startInterval != 60000 * 30 #half hour
         @startInterval = 60000 * 30
         @restartTimer()
-      else if newestTimeInSeconds >= 151200 and @startInterval != 60000 * 60 * 12 #half day
+      else if @startInterval != 60000 * 60 * 12 #half day
         @startInterval = 60000 * 60 * 12
         @restartTimer()
 
@@ -86,7 +89,13 @@ class TimeAgo
     space = if @options.spacing then ' ' else ''
 
     if dim < 60
-      "#{ if @options.approximate then @options.lang.prefixes.lt + " " else "1" + space }#{ @options.lang.units.minute }"
+      if @options.showSeconds
+        if dim == 0 or dim == 1
+          "1#{ space }#{ @options.lang.units.second }"
+        else
+          "#{ dim }#{ space }#{ @options.lang.units.seconds }"
+      else
+        "#{ if @options.approximate then @options.lang.prefixes.lt + " " else "1" + space }#{ @options.lang.units.minute }"
     else if dim < 120
       "1#{ space }#{ @options.lang.units.minute }"
     else if dim < 2700

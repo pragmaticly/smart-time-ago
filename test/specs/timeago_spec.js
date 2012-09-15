@@ -308,7 +308,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("context: >= 63072000", function(){
+    describe("context: dim >= 63072000", function(){
       beforeEach(function(){
         spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(63072000);
       });
@@ -446,7 +446,7 @@ describe("TimeAgo", function(){
         });
       });
 
-      describe("context: >= 63072000", function(){
+      describe("context: dim >= 63072000", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(63072000);
         });
@@ -465,7 +465,7 @@ describe("TimeAgo", function(){
         timeAgo.options.suffix = ' from now';
       });
 
-      describe("context: >= 63072000", function(){
+      describe("context: dim >= 63072000", function(){
         beforeEach(function(){
           spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(63072000);
         });
@@ -476,6 +476,43 @@ describe("TimeAgo", function(){
 
       afterEach(function(){
         timeAgo.options.suffix = ' ago';
+      });
+    });
+
+    describe("displaySeconds == true", function(){
+      beforeEach(function(){
+        timeAgo.options.showSeconds = true;
+      });
+
+      describe("context: dim == 0", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(0);
+        });
+        it("should return '1 second'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date().toString())).toEqual("1 second");
+        });
+      });
+
+      describe("context: dim == 1", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(1);
+        });
+        it("should return '1 second'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date().toString())).toEqual("1 second");
+        });
+      });
+
+      describe("context: dim == 30", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(30);
+        });
+        it("should return '30 seconds'", function(){
+          expect(timeAgo.distanceOfTimeInWords(new Date().toString())).toEqual("30 seconds");
+        });
+      });
+
+      afterEach(function(){
+        timeAgo.options.showSeconds = false;
       });
     });
 
