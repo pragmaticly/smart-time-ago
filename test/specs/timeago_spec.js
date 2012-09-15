@@ -170,119 +170,80 @@ describe("TimeAgo", function(){
   describe("distanceOfTimeInWords", function(){
 
     describe("context: dis == 0", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(0);
-      });
       it("should return 'less than a minute'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("less than a minute");
+        expect(timeAgo.distanceOfTimeInWords(0)).toEqual("less than a minute");
       });
     });
 
     describe("context: dis == 60", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(60);
-      });
       it("should return '1 minute'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 minute");
+        expect(timeAgo.distanceOfTimeInWords(60)).toEqual("1 minute");
       });
     });
 
     describe("context: dis >= 120 and dim < 2700", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(120);
-      });
       it("should return '2 minutes'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 minutes");
+        expect(timeAgo.distanceOfTimeInWords(120)).toEqual("2 minutes");
       });
     });
 
     describe("context: dis >= 2700 and dim < 5400", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5300);
-      });
       it("should return 'about 1 hour'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("about 1 hour");
+        expect(timeAgo.distanceOfTimeInWords(5300)).toEqual("about 1 hour");
       });
     });
 
     describe("context: dis >= 5400 and dim < 86400", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(7200);
-      });
       it("should return 'about 2 hours'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("about 2 hours");
+        expect(timeAgo.distanceOfTimeInWords(7200)).toEqual("about 2 hours");
       });
     });
 
     describe("context: dis >= 86400 and dim < 151200", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(151100);
-      });
       it("should return '1 day'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 day");
+        expect(timeAgo.distanceOfTimeInWords(151100)).toEqual("1 day");
       });
     });
 
     describe("context: dis >= 151200 and dim < 2592000", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(151200);
-      });
       it("should return '2 days'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 days");
+        expect(timeAgo.distanceOfTimeInWords(151200)).toEqual("2 days");
       });
     });
 
     describe("context: dis >= 2592000 and dim < 5184000", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5183000);
-      });
       it("should return 'about 1 month'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("about 1 month");
+        expect(timeAgo.distanceOfTimeInWords(5183000)).toEqual("about 1 month");
       });
     });
 
     describe("context: dis >= 5184000 and dim < 31536000", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(31535940);
-      });
       it("should return '12 months'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("12 months");
+        expect(timeAgo.distanceOfTimeInWords(31535940)).toEqual("12 months");
       });
     });
 
     describe("context: dis >= 31536000 and dim < 39312000", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(31536000);
-      });
       it("should return 'about 1 year'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("about 1 year");
+        expect(timeAgo.distanceOfTimeInWords(31536000)).toEqual("about 1 year");
       });
     });
 
     describe("context: dis >= 39312000 and dim < 54864000", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(39312000);
-      });
       it("should return 'over 1 year'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("over 1 year");
+        expect(timeAgo.distanceOfTimeInWords(39312000)).toEqual("over 1 year");
       });
     });
 
     describe("context: dis >= 54864000 and dim < 63072000", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(54864000);
-      });
       it("should return 'almost 2 years'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("almost 2 years");
+        expect(timeAgo.distanceOfTimeInWords(54864000)).toEqual("almost 2 years");
       });
     });
 
     describe("context: dis >= 63072000", function(){
-      beforeEach(function(){
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(63072000);
-      });
       it("should return 'about 2 years'", function(){
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("about 2 years");
+        expect(timeAgo.distanceOfTimeInWords(63072000)).toEqual("about 2 years");
       });
     });
 
@@ -292,10 +253,9 @@ describe("TimeAgo", function(){
     describe("spacing == false", function(){
       beforeEach(function(){
         timeAgo.options.spacing = false;
-        spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(60);
       });
       it("should return '1minute'", function() {
-        expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1minute");
+        expect(timeAgo.distanceOfTimeInWords(60)).toEqual("1minute");
       });
       afterEach(function(){
         timeAgo.options.spacing = true;
@@ -308,119 +268,80 @@ describe("TimeAgo", function(){
       });
 
       describe("context: dis == 0", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(0);
-        });
         it("should return '1 minute'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 minute");
+          expect(timeAgo.distanceOfTimeInWords(0)).toEqual("1 minute");
         });
       });
 
       describe("context: dis == 60", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(60);
-        });
         it("should return '1 minute'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 minute");
+          expect(timeAgo.distanceOfTimeInWords(60)).toEqual("1 minute");
         });
       });
 
       describe("context: dis >= 120 and dim < 2700", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(120);
-        });
         it("should return '2 minutes'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 minutes");
+          expect(timeAgo.distanceOfTimeInWords(120)).toEqual("2 minutes");
         });
       });
 
       describe("context: dis >= 2700 and dim < 5400", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5300);
-        });
         it("should return '1 hour'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 hour");
+          expect(timeAgo.distanceOfTimeInWords(5300)).toEqual("1 hour");
         });
       });
 
       describe("context: dis >= 5400 and dim < 86400", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(7200);
-        });
         it("should return '2 hours'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 hours");
+          expect(timeAgo.distanceOfTimeInWords(7200)).toEqual("2 hours");
         });
       });
 
       describe("context: dis >= 86400 and dim < 151200", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(151100);
-        });
         it("should return '1 day'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 day");
+          expect(timeAgo.distanceOfTimeInWords(151100)).toEqual("1 day");
         });
       });
 
       describe("context: dis >= 151200 and dim < 2592000", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(151200);
-        });
         it("should return '2 days'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 days");
+          expect(timeAgo.distanceOfTimeInWords(151200)).toEqual("2 days");
         });
       });
 
       describe("context: dis >= 2592000 and dim < 5184000", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5183000);
-        });
         it("should return '1 month'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 month");
+          expect(timeAgo.distanceOfTimeInWords(5183000)).toEqual("1 month");
         });
       });
 
       describe("context: dis >= 5184000 and dim < 31536000", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(31535940);
-        });
         it("should return '12 months'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("12 months");
+          expect(timeAgo.distanceOfTimeInWords(31535940)).toEqual("12 months");
         });
       });
 
       describe("context: dis >= 31536000 and dim < 39312000", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(31536000);
-        });
         it("should return '1 year'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 year");
+          expect(timeAgo.distanceOfTimeInWords(31536000)).toEqual("1 year");
         });
       });
 
       describe("context: dis >= 39312000 and dim < 54864000", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(39312000);
-        });
         it("should return '1 year'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("1 year");
+          expect(timeAgo.distanceOfTimeInWords(39312000)).toEqual("1 year");
         });
       });
 
       describe("context: dis >= 54864000 and dim < 63072000", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(54864000);
-        });
         it("should return '2 years'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 years");
+          expect(timeAgo.distanceOfTimeInWords(54864000)).toEqual("2 years");
         });
       });
 
       describe("context: dis >= 63072000", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(63072000);
-        });
         it("should return '2 years'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date())).toEqual("2 years");
+          expect(timeAgo.distanceOfTimeInWords(63072000)).toEqual("2 years");
         });
       });
 
@@ -454,29 +375,20 @@ describe("TimeAgo", function(){
       });
 
       describe("context: dis == 0", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(0);
-        });
         it("should return '1 second'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date().toString())).toEqual("1 second");
+          expect(timeAgo.distanceOfTimeInWords(0)).toEqual("1 second");
         });
       });
 
       describe("context: dis == 1", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(1);
-        });
         it("should return '1 second'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date().toString())).toEqual("1 second");
+          expect(timeAgo.distanceOfTimeInWords(1)).toEqual("1 second");
         });
       });
 
       describe("context: dis == 30", function(){
-        beforeEach(function(){
-          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(30);
-        });
         it("should return '30 seconds'", function(){
-          expect(timeAgo.distanceOfTimeInWords(new Date().toString())).toEqual("30 seconds");
+          expect(timeAgo.distanceOfTimeInWords(30)).toEqual("30 seconds");
         });
       });
 
@@ -512,6 +424,35 @@ describe("TimeAgo", function(){
       afterEach(function(){
         timeAgo.options.showSeconds = false;
         timeAgo.options.showNow = false;
+      });
+    });
+
+    describe("maxRelative == 2592000", function(){
+      beforeEach(function(){
+        timeAgo.options.maxRelative = 2592000;
+      });
+
+      describe("context: dis == 5", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5);
+        });
+        it("should return 'less than a minute ago'", function(){
+          expect(timeAgo.timeAgoInWords(new Date().toString())).toEqual("less than a minute ago");
+        });
+      });
+
+      describe("context: dis == 2600000", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(2600000);
+        });
+        var datetime = '2012-07-18T07:51:50Z';
+        it("should return '" + datetime + "'", function(){
+          expect(timeAgo.timeAgoInWords(datetime)).toEqual(datetime);
+        });
+      });
+
+      afterEach(function(){
+        timeAgo.options.maxRelative = false;
       });
     });
 
