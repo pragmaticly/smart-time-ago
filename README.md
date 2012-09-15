@@ -21,19 +21,9 @@ Or if you use node, you can install it from npm.
 Why Smart?
 -------------
 
-Smart Time Ago will check and update the relative time every 60000 millisecond (60 seconds) in the scope you specify at the beginning. Latter it will check the newest time in your scope then tune the checking time interval to a proper value. 
+Smart Time Ago will check and update the relative time only when it needs to, automatically increasing the timeout time as the given date becomes older.
 
-For example, if the newest time in the scope you specify is '2 hours ago'. There is no need to check and update the relative time every 60 seconds. Instead, Smart Time Ago will automaticly make the checking time interval longer to 30 minutes.
-
-Rules:
-  
-  The newest time is less than 44 minutes, the checking time interval will set to 1 minute.
-
-  The newest time is between 44 and 89 minutes, the checking time interval will set to 22 minutes.
-
-  The newest time is between 90 minutes and 42 hours, the checking time interval will set to 30 minutes.
-
-  The newest time is more than 42 hours, the checking time interval will set to half day.
+For example, if the newest time in the scope you specify is '2 hours ago'. There is no need to check and update the relative time every 60 seconds. Instead, Smart Time Ago will automaticly make the checking time timeout to the next time it needs to update.
 
 Usage
 ------------
@@ -49,7 +39,6 @@ You can use it in a specify scope like.
 
 By default, timeago will get the date from the `datetime` attribute. This will create a TimeAgo instance for each of the matched elements that have the required attribute.
 
-    
 Configuration
 --------------
 
@@ -81,7 +70,6 @@ You can change the default configurations by passing the options to
 timeago function when initialize timeago like:
 
     $('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: ' from now'})
-
 
 TODO
 -----
