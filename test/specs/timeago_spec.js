@@ -479,7 +479,7 @@ describe("TimeAgo", function(){
       });
     });
 
-    describe("displaySeconds == true", function(){
+    describe("showSeconds == true", function(){
       beforeEach(function(){
         timeAgo.options.showSeconds = true;
       });
@@ -513,6 +513,36 @@ describe("TimeAgo", function(){
 
       afterEach(function(){
         timeAgo.options.showSeconds = false;
+      });
+    });
+
+    describe("showSeconds == true and showNow == 5", function(){
+      beforeEach(function(){
+        timeAgo.options.showSeconds = true;
+        timeAgo.options.showNow = 15;
+      });
+
+      describe("context: dim == 5", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(5);
+        });
+        it("should return 'just now'", function(){
+          expect(timeAgo.timeAgoInWords(new Date().toString())).toEqual("just now");
+        });
+      });
+
+      describe("context: dim == 20", function(){
+        beforeEach(function(){
+          spyOn(timeAgo, 'getTimeDistanceInSeconds').andReturn(20);
+        });
+        it("should return '20 seconds ago'", function(){
+          expect(timeAgo.timeAgoInWords(new Date().toString())).toEqual("20 seconds ago");
+        });
+      });
+
+      afterEach(function(){
+        timeAgo.options.showSeconds = false;
+        timeAgo.options.showNow = false;
       });
     });
 

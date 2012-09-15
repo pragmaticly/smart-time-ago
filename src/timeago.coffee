@@ -50,7 +50,10 @@ class TimeAgo
       newestTime = @parse(newestTimeSrc)
       newestTimeInSeconds = @getTimeDistanceInSeconds(newestTime)
 
-      if @options.showSeconds and newestTimeInSeconds < 60 and @startInterval != 1000 #1 second
+      if @options.showSeconds and @options.showNow and newestTimeInSeconds < @options.showNow
+        @startInterval = @options.showNow - newestTimeInSeconds
+        @restartTimer()
+      else if @options.showSeconds and newestTimeInSeconds < 60 and @startInterval != 1000 #1 second
         @startInterval = 1000
         @restartTimer()
       else if newestTimeInSeconds < 2700 and @startInterval != 60000 #1 minute
@@ -68,8 +71,14 @@ class TimeAgo
 
   timeAgoInWords: (timeString) ->
     absolutTime = @parse(timeString)
-    suffix = @options.suffix or @options.lang.suffix
-    "#{@options.lang.prefixes.ago}#{@distanceOfTimeInWords(absolutTime)}#{suffix}"
+    words = @distanceOfTimeInWords(absolutTime)
+    if words == @options.lang.prefixes.now
+      ago = ""
+      suffix = ""
+    else
+      ago = @options.lang.prefixes.ago
+      suffix = @options.suffix or @options.lang.suffix
+    "#{ago}#{words}#{suffix}"
 
   parse: (iso8601) ->
     timeStr = $.trim(iso8601)
@@ -90,7 +99,9 @@ class TimeAgo
 
     if dim < 60
       if @options.showSeconds
-        if dim == 0 or dim == 1
+        if @options.showNow and @options.showNow > dim
+          @options.lang.prefixes.now
+        else if dim == 0 or dim == 1
           "1#{ space }#{ @options.lang.units.second }"
         else
           "#{ dim }#{ space }#{ @options.lang.units.seconds }"
@@ -141,6 +152,8 @@ $.fn.timeago.defaults =
   spacing: true
   approximate: true
   dir: 'up'
+  showSeconds: false
+  showNow: false
   lang:
     units:
       second: "second"
@@ -156,6 +169,7 @@ $.fn.timeago.defaults =
       year: "year"
       years: "years"
     prefixes:
+      now: "just now"
       lt: "less than a"
       about: "about"
       over: "over"
