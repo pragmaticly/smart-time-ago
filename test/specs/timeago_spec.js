@@ -51,7 +51,7 @@ describe("TimeAgo", function(){
     beforeEach(function(){
       timeLabel = $('<time class="timeago" datetime="2012-07-18T07:51:50Z">about 8 hours ago</time>')
       $('body').append(timeLabel)
-      timeAgo = new TimeAgo("time.timeago", {selector: 'time.timeago', attr: 'datetime', dir: 'up', suffix: 'ago'});
+      timeAgo = new TimeAgo("time.timeago", { attr: 'datetime', suffix: 'ago'});
     });
 
     afterEach(function(){
@@ -69,7 +69,7 @@ describe("TimeAgo", function(){
     beforeEach(function(){
       timeLabel = $('<time class="timeago" datetime="2012-07-18T07:51:50Z">about 8 hours ago</time>')
       $('body').append(timeLabel)
-      timeAgo = new TimeAgo("time.timeago", {selector: 'time.timeago', attr: 'datetime', dir: 'up', suffix: 'ago'});
+      timeAgo = new TimeAgo("time.timeago", { attr: 'datetime', suffix: 'ago'});
     });
 
     afterEach(function(){

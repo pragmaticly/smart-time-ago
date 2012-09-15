@@ -19,7 +19,6 @@ class TimeAgo
     clearInterval(@interval)
 
   restartTimer: ->
-    console.log('restarting timer', @startInterval)
     @stopTimer()
     @startTimer()
 
@@ -28,39 +27,32 @@ class TimeAgo
     @updateInterval()
 
   updateTime: ->
-    self = @
-    @$element.findAndSelf(@options.selector).each ->
-      timeAgoInWords = self.timeAgoInWords($(this).attr(self.options.attr))
-      $(this).html(timeAgoInWords)
+    timeAgoInWords = @timeAgoInWords(@$element.attr(@options.attr))
+    @$element.html(timeAgoInWords)
 
   updateInterval: ->
-    if @$element.findAndSelf(@options.selector).length > 0
-      if @options.dir is "up"
-        filter = ":first"
-      else if @options.dir is "down"
-        filter = ":last"
-      newestTimeSrc = @$element.findAndSelf(@options.selector).filter(filter).attr(@options.attr)
-      newestTime = @parse(newestTimeSrc)
-      dis = @getTimeDistanceInSeconds(newestTime)
+    newestTimeSrc = @$element.attr(@options.attr)
+    newestTime = @parse(newestTimeSrc)
+    dis = @getTimeDistanceInSeconds(newestTime)
 
-      if @options.showSeconds and @options.showNow and dis < @options.showNow
-        @startInterval = (@options.showNow - dis) * 1000
-        @restartTimer()
-      else if @options.showSeconds and dis < 60
-        @startInterval = 1000
-        @restartTimer()
-      else if dis < 2700
-        @startInterval = (60 - dis % 60) * 1000
-        @restartTimer()
-      else if dis < 5400
-        @startInterval = (5400 - dis) * 1000
-        @restartTimer()
-      else if dis < 151200
-        @startInterval = (3600 - dis % 3600) * 1000
-        @restartTimer()
-      else
-        @startInterval = (86400 - dis % 86400) * 1000
-        @restartTimer()
+    if @options.showSeconds and @options.showNow and dis < @options.showNow
+      @startInterval = (@options.showNow - dis) * 1000
+      @restartTimer()
+    else if @options.showSeconds and dis < 60
+      @startInterval = 1000
+      @restartTimer()
+    else if dis < 2700
+      @startInterval = (60 - dis % 60) * 1000
+      @restartTimer()
+    else if dis < 5400
+      @startInterval = (5400 - dis) * 1000
+      @restartTimer()
+    else if dis < 151200
+      @startInterval = (3600 - dis % 3600) * 1000
+      @restartTimer()
+    else
+      @startInterval = (86400 - dis % 86400) * 1000
+      @restartTimer()
 
   timeAgoInWords: (timeString) ->
     absolutTime = @parse(timeString)
@@ -128,23 +120,20 @@ class TimeAgo
 $.fn.timeago = (options = {}) ->
   @each ->
     $this = $(this)
+    attr = $this.attr(options.attr or $.fn.timeago.defaults.attr)
+    if attr == undefined or attr == false
+      return
+
     data = $this.data("timeago")
     if (!data)
       $this.data("timeago", new TimeAgo(this, options))
-    if (typeof options is 'string')
-      data[options]()
-
-$.fn.findAndSelf = (selector) ->
-  this.find(selector).add(this.filter(selector))
 
 $.fn.timeago.Constructor = TimeAgo
 
 $.fn.timeago.defaults =
-  selector: 'time.timeago'
   attr: 'datetime'
   spacing: true
   approximate: true
-  dir: 'up'
   showSeconds: false
   showNow: false
   lang:
