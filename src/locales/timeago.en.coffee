@@ -1,4 +1,5 @@
 // persian locales
+// by: Kiarash Soleimanzadeh
 $.fn.timeago.defaults.lang =
   units:
     second: "ثانیه"
