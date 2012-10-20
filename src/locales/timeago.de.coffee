@@ -14,7 +14,7 @@ $.fn.timeago.defaults.lang =
     years: "Jahren"
   prefixes:
     lt: "weniger als eine"
-    about: "ungerfähr"
+    about: "ungefähr"
     over: "über"
     almost: "fast"
     ago: "vor "
