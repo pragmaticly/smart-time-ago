@@ -13,13 +13,13 @@ describe("TimeAgo", function(){
 
   describe("#startTimer", function(){
     it("should call setInterval", function(){
-      spyOn(window, 'setInterval');
+      spyOn(window, 'setTimeout');
       timeAgo.startTimer();
-      expect(window.setInterval).toHaveBeenCalled();
+      expect(window.setTimeout).toHaveBeenCalled();
     });
 
     it("should set interval", function(){
-      spyOn(window, 'setInterval').andReturn("spy");
+      spyOn(window, 'setTimeout').andReturn("spy");
       timeAgo.startTimer();
       expect(timeAgo.interval).toEqual("spy");
     });
@@ -27,9 +27,9 @@ describe("TimeAgo", function(){
 
   describe("#stopTimer",function(){
     it("should call clearInterval", function(){
-      spyOn(window, 'clearInterval');
+      spyOn(window, 'clearTimeout');
       timeAgo.stopTimer();
-      expect(window.clearInterval).toHaveBeenCalled();
+      expect(window.clearTimeout).toHaveBeenCalled();
     });
   });
 
