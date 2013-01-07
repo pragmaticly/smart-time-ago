@@ -13,7 +13,9 @@ class TimeAgo
     @refresh()
 
   startTimer: ->
-    @interval = setTimeout(@refresh.bind(@), @startInterval)
+    @interval = setTimeout(=>
+      @refresh()
+    , @startInterval)
 
   stopTimer: ->
     clearTimeout(@interval)
