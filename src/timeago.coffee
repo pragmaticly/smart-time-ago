@@ -69,7 +69,7 @@ class TimeAgo
 
   parse: (iso8601) ->
     timeStr = $.trim(iso8601)
-    timeStr = timeStr.replace(/\.\d\d\d+/,"")
+    timeStr = timeStr.replace(/\.\d+/,"")
     timeStr = timeStr.replace(/-/,"/").replace(/-/,"/")
     timeStr = timeStr.replace(/T/," ").replace(/Z/," UTC")
     timeStr = timeStr.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2")
