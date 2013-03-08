@@ -13,7 +13,7 @@ $.fn.timeago.defaults.lang =
     year: "年"
     years: "年"
   prefixes:
-    lt: "不到"
+    lt: "不到 1"
     about: "大约"
     over: "超过"
     almost: "接近"
