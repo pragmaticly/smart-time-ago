@@ -99,7 +99,7 @@ timeago function when initialize timeago like:
 Gem for Rails
 -------------
 Thanks [ashchan](https://github.com/ashchan) for writing the ruby gem:
-[smart-time-ago](https://github.com/ashchan/timeago-rails) 
+[timeago-rails](https://github.com/ashchan/timeago-rails)
 
 If you wanna running Smart Time Ago in Rails, please do check it out. 
 
