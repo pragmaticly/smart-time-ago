@@ -8,8 +8,8 @@ $.fn.timeago.defaults.lang =
     hours: "小时"
     day: "天"
     days: "天"
-    month: "月"
-    months: "月"
+    month: "个月"
+    months: "个月"
     year: "年"
     years: "年"
   prefixes:
