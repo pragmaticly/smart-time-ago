@@ -116,7 +116,7 @@ $.fn.timeago = (options = {}) ->
     data = $this.data("timeago")
     if (!data)
       $this.data("timeago", new TimeAgo(this, options))
-    if (typeof options is 'string')
+    else if (typeof options is 'string')
       data[options]()
 
 $.fn.findAndSelf = (selector) ->
