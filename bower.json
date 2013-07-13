@@ -1,0 +1,5 @@
+{
+  "name": "smart-time-ago",
+  "version": "0.1.5",
+  "main": "lib/timeago.js"
+}
