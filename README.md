@@ -85,9 +85,15 @@ timeago function when initialize timeago like:
 
     $('.timeago').timeago({selector: 'span.timeago', attr: 'title', dir: 'down', suffix: ' from now'})
 
+Gem for Rails
+-------------
+Thanks [ashchan](https://github.com/ashchan) for writing the ruby gem:
+[timeago-rails](https://github.com/ashchan/timeago-rails)
+
+If you wanna running Smart Time Ago in Rails, please do check it out. 
+
 TODO
 -----
-Will create a gem to better support Rails project.
 
 Thanks very much if you could contribute.
 

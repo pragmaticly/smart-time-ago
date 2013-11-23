@@ -70,7 +70,7 @@ class TimeAgo
 
   parse: (iso8601) ->
     timeStr = $.trim(iso8601)
-    timeStr = timeStr.replace(/\.\d\d\d+/,"")
+    timeStr = timeStr.replace(/\.\d+/,"")
     timeStr = timeStr.replace(/-/,"/").replace(/-/,"/")
     timeStr = timeStr.replace(/T/," ").replace(/Z/," UTC")
     timeStr = timeStr.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2")
@@ -127,6 +127,11 @@ $.fn.timeago = (options = {}) ->
     data = $this.data("timeago")
     if (!data)
       $this.data("timeago", new TimeAgo(this, options))
+    else if (typeof options is 'string')
+      data[options]()
+
+$.fn.findAndSelf = (selector) ->
+  this.find(selector).add(this.filter(selector))
 
 $.fn.timeago.Constructor = TimeAgo
 

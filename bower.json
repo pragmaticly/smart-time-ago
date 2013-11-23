@@ -1,0 +1,52 @@
+{
+    "name": "smart-time-ago",
+    "version": "0.1.5",
+    "title": "jQuery library to update the relative timestamps in your document",
+    "description": "jQuery library to update the relative timestamps in your document with flexibility and intelligence.",
+    "keywords": [
+        "jquery",
+        "timeago",
+        "time-ago",
+        "smart-time-ago"
+    ],
+    "homepage": "http://pragmaticly.github.com/smart-time-ago",
+    "author": {
+        "name": "Terry Tai",
+        "url": "http://terrytai.com"
+    },
+    "maintainers": [
+        {
+            "name": "Terry Tai",
+            "url": "http://terrytai.com"
+        },
+        {
+            "name": "Dingding Ye",
+            "url": "http://yedingding.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/pragmaticly/smart-time-ago.git"
+    },
+    "bugs": "https://github.com/pragmaticly/smart-time-ago/issues",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/MIT"
+        }
+    ],
+    "dependencies": {
+        "jquery": ">=1.6"
+    },
+    "main": [
+        "lib/timeago.js",
+        "lib/locales/timeago.da.js",
+        "lib/locales/timeago.de.js",
+        "lib/locales/timeago.en.js",
+        "lib/locales/timeago.es.js",
+        "lib/locales/timeago.fr.js",
+        "lib/locales/timeago.ja.js",
+        "lib/locales/timeago.pt-br.js",
+        "lib/locales/timeago.zh-cn.js"
+    ]
+}
