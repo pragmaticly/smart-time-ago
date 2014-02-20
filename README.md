@@ -3,7 +3,7 @@ Smart Time Ago
 
 Smart Time Ago is a little jQuery library to update the relative timestamps in your document intelligently. (e.g "3 hours ago").
 
-It's originally built for https://pragmatic.ly/. 
+It's originally built for https://fengche.co/ (Originally Pragmatic.ly).
 
 It's inspired by another jQuery plugin http://timeago.yarp.com/ but give more flexibility and more intelligently.
 
@@ -112,12 +112,12 @@ Thanks very much if you could contribute.
 Credits
 -------
 
-![pragmatic.ly](https://pragmatic.ly/assets/vlogo.png)
+![pragmatic.ly](https://fengche.co/assets/vlogo.png)
 
-Smart Time Ago is maintained and funded by [Pragmatic.ly](https://pragmatic.ly/ "Pragmatic.ly").
+Smart Time Ago is maintained and funded by [Fengche.co](https://fengche.co/ "Fengche.co").
 
 Thanks to all the contributors.
 
 Special thanks to [unRob](https://github.com/unRob) for the i18n support.
 
-Copyright (c) 2012 Terry Tai, Pragmatic.ly (terry@pragmatic.ly, https://pragmatic.ly/)
+Copyright (c) 2012 Terry Tai, Fengche.co (terry@fengche.co, https://fengche.co/)
