@@ -112,7 +112,7 @@ Thanks very much if you could contribute.
 Credits
 -------
 
-![pragmatic.ly](https://fengche.co/assets/vlogo.png)
+![风车协作](https://fengche.co/assets/logo-with-name.png)
 
 Smart Time Ago is maintained and funded by [Fengche.co](https://fengche.co/ "Fengche.co").
 
