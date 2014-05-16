@@ -19,9 +19,7 @@ class TimeAgo
 
   startTimer: ->
     self = @
-    @interval = setInterval ( ->
-      self.refresh()
-    ), @startInterval
+    @interval = setInterval $.proxy(self.refresh, this), @startInterval
 
   stopTimer: ->
     clearInterval(@interval)
