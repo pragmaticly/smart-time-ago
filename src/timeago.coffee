@@ -39,6 +39,9 @@ class TimeAgo
     @$element.findAndSelf(@options.selector).each ->
       $el = $(this)
       timeAgoInWords = self.timeAgoInWords($el.attr(self.options.attr))
+      unless $el.prop('title')
+          text = $el.text()
+          $el.prop('title', $el.text()) if text
       $el.html(timeAgoInWords)
 
   updateInterval: ->
