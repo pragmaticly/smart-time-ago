@@ -19,9 +19,7 @@ class TimeAgo
 
   startTimer: ->
     self = @
-    @interval = setInterval ( ->
-      self.refresh()
-    ), @startInterval
+    @interval = setInterval $.proxy(self.refresh, this), @startInterval
 
   stopTimer: ->
     clearInterval(@interval)
@@ -37,8 +35,12 @@ class TimeAgo
   updateTime: ->
     self = @
     @$element.findAndSelf(@options.selector).each ->
-      timeAgoInWords = self.timeAgoInWords($(this).attr(self.options.attr))
-      $(this).html(timeAgoInWords)
+      $el = $(this)
+      timeAgoInWords = self.timeAgoInWords($el.attr(self.options.attr))
+      unless $el.prop('title')
+          text = $el.text()
+          $el.prop('title', $el.text()) if text
+      $el.html(timeAgoInWords)
 
   updateInterval: ->
     if @$element.findAndSelf(@options.selector).length > 0
