@@ -37,8 +37,9 @@ class TimeAgo
   updateTime: ->
     self = @
     @$element.findAndSelf(@options.selector).each ->
-      timeAgoInWords = self.timeAgoInWords($(this).attr(self.options.attr))
-      $(this).html(timeAgoInWords)
+      $el = $(this)
+      timeAgoInWords = self.timeAgoInWords($el.attr(self.options.attr))
+      $el.html(timeAgoInWords)
 
   updateInterval: ->
     if @$element.findAndSelf(@options.selector).length > 0
