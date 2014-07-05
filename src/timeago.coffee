@@ -65,7 +65,11 @@ class TimeAgo
 
   timeAgoInWords: (timeString) ->
     absolutTime = @parse(timeString)
-    "#{@options.lang.prefixes.ago}#{@distanceOfTimeInWords(absolutTime)}#{@options.lang.suffix}"
+    dim = @getTimeDistanceInMinutes(absolutTime)
+    timeInWords = @distanceOfTimeInWords(dim)
+    prefix = if (dim >= 0) then @options.lang.prefixes.ago else ''
+    suffix = if (dim < 0) then @options.lang.suffix else ''
+    "#{prefix}#{timeInWords}#{suffix}"
 
   parse: (iso8601) ->
     timeStr = $.trim(iso8601)
@@ -76,12 +80,12 @@ class TimeAgo
     new Date(timeStr);
 
   getTimeDistanceInMinutes: (absolutTime) ->
-    timeDistance = new Date().getTime() - absolutTime.getTime()
-    Math.round((Math.abs(timeDistance) / 1000) / 60)
+    timeDistance = absolutTime.getTime() - new Date().getTime()
+    Math.round((timeDistance / 1000) / 60)
 
-  distanceOfTimeInWords: (absolutTime) ->
+  distanceOfTimeInWords: (dim) ->
     #TODO support i18n.
-    dim = @getTimeDistanceInMinutes(absolutTime) #distance in minutes
+    dim = Math.abs(dim) #distance in minutes
 
     if dim == 0
       "#{ @options.lang.prefixes.lt } #{ @options.lang.units.minute }"
