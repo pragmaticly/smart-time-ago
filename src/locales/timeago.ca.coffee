@@ -1,0 +1,21 @@
+$.fn.timeago.defaults.lang =
+  units:
+    second: "segon"
+    seconds: "segons"
+    minute: "minut"
+    minutes: "minuts"
+    hour: "hora"
+    hours: "hores"
+    day: "dia"
+    days: "dies"
+    month: "mes"
+    months: "mesos"
+    year: "any"
+    years: "anys"
+  prefixes:
+    lt: "fa menys d\'un"
+    about: "prop de"
+    over: "més"
+    almost: "gairebé"
+    ago: "fa "
+  suffix: ""
