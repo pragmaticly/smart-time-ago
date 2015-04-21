@@ -1,0 +1,21 @@
+$.fn.timeago.defaults.lang =
+  units:
+    second: "saniye"
+    seconds: "saniyeler"
+    minute: "dakika"
+    minutes: "dakikalar"
+    hour: "saat"
+    hours: "saatler"
+    day: "gün"
+    days: "günler"
+    month: "ay"
+    months: "aylar"
+    year: "yıl"
+    years: "yıllar"
+  prefixes:
+    lt: "biraz önce"
+    about: "hakkında"
+    over: "üzerinde"
+    almost: "neredeyse"
+    ago: ""
+  suffix: " önce"
