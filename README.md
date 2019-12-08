@@ -23,7 +23,7 @@ Why Smart?
 
 Smart Time Ago will check and update the relative time every 60000 millisecond (60 seconds) in the scope you specify at the beginning. Latter it will check the newest time in your scope then tune the checking time interval to a proper value. 
 
-For example, if the newest time in the scope you specify is '2 hours ago'. There is no need to check and update the relative time every 60 seconds. Instead, Smart Time Ago will automaticly make the checking time interval longer to 30 minutes.
+For example, if the newest time in the scope you specify is '2 hours ago'. There is no need to check and update the relative time every 60 seconds. Instead, Smart Time Ago will automatically make the checking time interval longer to 30 minutes.
 
 Rules:
   
